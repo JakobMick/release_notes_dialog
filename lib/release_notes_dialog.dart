@@ -167,7 +167,8 @@ class ReleaseNotesDialog {
                           physics: const ClampingScrollPhysics(),
                           itemBuilder: (BuildContext context, int changeIndex) {
                             return Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              textBaseline: TextBaseline.alphabetic,
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
                               children: [
                                 Text(glyph.bullet + " "),
                                 Expanded(
