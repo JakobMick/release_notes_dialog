@@ -1,11 +1,11 @@
 name: release_notes_dialog
-description: A new Flutter package project.
+description: An easy to use release notes dialog.
 version: 0.0.1
-author:
-homepage:
+author: Jakob Mick<info@jakobmick.de>
+homepage: https://github.com/JakobMick/release_notes_dialog
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
