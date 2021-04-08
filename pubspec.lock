@@ -115,7 +115,7 @@ packages:
     source: hosted
     version: "1.1.0"
   term_glyph:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: term_glyph
       url: "https://pub.dartlang.org"

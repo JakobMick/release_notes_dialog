@@ -1,8 +1,9 @@
 name: release_notes_dialog
 description: An easy to use release notes dialog.
-version: 1.0.0
+version: 1.0.1
 author: Jakob Mick<info@jakobmick.de>
 homepage: https://github.com/JakobMick/release_notes_dialog
+publish_to: https://pub.dev
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -11,8 +12,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  term_glyph: "^1.2.0"
 
 dev_dependencies:
   flutter_test:
