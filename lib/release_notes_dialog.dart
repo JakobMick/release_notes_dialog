@@ -26,13 +26,13 @@ class ReleaseNotesDialog {
   final String title;
   final String closeButtonString;
 
-  final Color? backgroundColor;
-  final ShapeBorder? shape;
-  final double? elevation;
-  final String? semanticLabel;
-
   final double? width;
   final double? height;
+  final Color? backgroundColor;
+  final double? elevation;
+  final ShapeBorder? shape;
+  final bool barrierDismissible;
+  final String? semanticLabel;
 
   final EdgeInsetsGeometry? titlePadding;
   final EdgeInsetsGeometry? contentPadding;
@@ -47,23 +47,19 @@ class ReleaseNotesDialog {
   final TextStyle? releaseSublistNameTextStyle;
   final TextStyle? changeTextStyle;
 
-  final bool barrierDismissible;
-
   ReleaseNotesDialog(
     this.context, {
     this.key,
     this.releases = const [],
     this.title = 'Release Notes',
     this.closeButtonString = 'Close',
-    //
-    this.backgroundColor,
-    this.shape,
-    this.elevation,
-    this.semanticLabel,
-    //
     this.width,
     this.height,
-    //
+    this.backgroundColor,
+    this.elevation,
+    this.shape,
+    this.barrierDismissible = true,
+    this.semanticLabel,
     this.titlePadding,
     this.contentPadding,
     this.paddingBetweenReleases = 32.5,
@@ -71,13 +67,10 @@ class ReleaseNotesDialog {
     this.paddingBetweenReleaseSublists = 10.0,
     this.paddingBeneathReleaseSublistName = 5.0,
     this.paddingBetweenChanges = 0.0,
-    //
     this.titleTextStyle,
     this.versionNumberTextStyle,
     this.releaseSublistNameTextStyle,
     this.changeTextStyle,
-    //
-    this.barrierDismissible = true,
   });
 
   Future show() => showDialog(
