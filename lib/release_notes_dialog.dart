@@ -24,7 +24,7 @@ class ReleaseNotesDialog {
   final List<Release> releases;
 
   final String title;
-  final String? closeButtonString;
+  final String closeButtonString;
 
   final Color? backgroundColor;
   final ShapeBorder? shape;
@@ -54,7 +54,7 @@ class ReleaseNotesDialog {
     this.key,
     this.releases = const [],
     this.title = 'Release Notes',
-    this.closeButtonString,
+    this.closeButtonString = 'Close',
     //
     this.backgroundColor,
     this.shape,
@@ -214,7 +214,7 @@ class ReleaseNotesDialog {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(closeButtonString ?? 'Close'),
+          child: Text(closeButtonString),
         )
       ],
     );
