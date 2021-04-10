@@ -21,80 +21,35 @@ class MyApp extends StatelessWidget {
 
 class ExamplePage extends StatelessWidget {
   final List<Release> releases = [
-    Release(
-      "1.2.0",
-      [
-        ReleaseSublist(
-          name: "Features",
-          changes: [
-            "Added app shortcuts",
-            "Added new calculator tab: Unit converter",
-          ],
-        ),
-        ReleaseSublist(
-          name: "Improvements",
-          changes: [
-            "Added adaptive icon",
-          ],
-        ),
-        ReleaseSublist(
-          name: "Fixes",
-          changes: [
-            "Fixed date format on entry screen",
-            "Fixed bug when deleting only entry from movement",
-          ],
-        ),
-        ReleaseSublist(
-          name: "Other",
-          changes: [
-            "Removed third party ads",
-          ],
-        ),
-      ],
-    ),
-    Release(
-      "1.1.0",
-      [
-        ReleaseSublist(
-          name: "Features",
-          changes: [
-            "Added highlighting search terms",
-          ],
-        ),
-        ReleaseSublist(
-          name: "Improvements",
-          changes: [
-            "Improved offline capabilities",
-            "Improved error handling",
-            "Improved database reads and writes",
-            "Other minor improvements",
-          ],
-        ),
-        ReleaseSublist(
-          name: "Fixes",
-          changes: [
-            "Fixed bug where ads would not be disposed correcty",
-            "Fixed bug that would appear after deleting an entry",
-            "Other minor bug fixes",
-          ],
-        ),
-        ReleaseSublist(
-          name: "Other",
-          changes: [
-            "Full Android 11 support",
-          ],
-        ),
-      ],
-    ),
-    Release(
-      "1.0.0",
-      [
-        ReleaseSublist(
-          name: "Release!",
-        ),
-      ],
-    ),
-  ];
+  Release(
+    "1.1.0",
+    [
+      ReleaseSublist(
+        name: "Features",
+        changes: [
+          "Added new feature 1",
+          "Added new feature 2",
+        ],
+      ),
+      ReleaseSublist(
+        name: "Fixes",
+        changes: [
+          "Fixed bug 1",
+          "Fixed bug 2",
+          "Fixed bug 3",
+        ],
+      ),
+    ],
+  ),
+  Release(
+    "1.0.0",
+    [
+      ReleaseSublist(
+        name: "Release!",
+      ),
+    ],
+  ),
+];
 
   @override
   Widget build(BuildContext context) {
