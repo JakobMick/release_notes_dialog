@@ -1,7 +1,3 @@
-# Release Notes Dialog
+# Release Notes Dialog Example
 
-An easy to use release notes dialog.
-
-## Getting Started
-
-See the example to get started!
+An example for the release_notes_dialog package.
