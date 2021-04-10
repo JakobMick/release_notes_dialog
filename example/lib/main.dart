@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:release_notes_dialog/release_notes_dialog.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ExampleApp());
 }
 
-class MyApp extends StatelessWidget {
+class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Release Notes Dialog Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
