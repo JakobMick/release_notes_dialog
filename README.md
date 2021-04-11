@@ -1,6 +1,8 @@
 # Release Notes Dialog
 
-An easy to use release notes dialog.
+An easy to use release notes dialog. Customizable to fit your apps design.
+
+<img src="https://github.com/JakobMick/release_notes_dialog/blob/main/README_example_screenshot.jpg?raw=true" width="256">
 
 ## Installation
 
@@ -19,39 +21,41 @@ import 'package:release_notes_dialog/release_notes_dialog.dart';
 
 ## Basic Usage
 
+The ReleaseNotesDialog requires a list of releases. A release needs a version number and contains a list of sublists. Sublists are used to group your changes, for example features, bug fixes, improvements, other.
+
 Create a list of releases:
 
 ```dart
 final List<Release> releases = [
-    Release(
-      "1.1.0",
-      [
-        ReleaseSublist(
-          name: "Features",
-          changes: [
-            "Added new Feature 1",
-            "Added new Feature 2",
-          ],
-        ),
-        ReleaseSublist(
-          name: "Fixes",
-          changes: [
-            "Fixed bug 1",
-            "Fixed bug 2",
-            "Fixed bug 3",
-          ],
-        ),
-      ],
-    ),
-    Release(
-      "1.0.0",
-      [
-        ReleaseSublist(
-          name: "Release!",
-        ),
-      ],
-    ),
-  ];
+  Release(
+    "1.1.0",
+    [
+      ReleaseSublist(
+        name: "Features",
+        changes: [
+          "Added new feature 1",
+          "Added new feature 2",
+        ],
+      ),
+      ReleaseSublist(
+        name: "Fixes",
+        changes: [
+          "Fixed bug 1",
+          "Fixed bug 2",
+          "Fixed bug 3",
+        ],
+      ),
+    ],
+  ),
+  Release(
+    "1.0.0",
+    [
+      ReleaseSublist(
+        name: "Release!",
+      ),
+    ],
+  ),
+];
 ```
 
 Show the dialog:
@@ -68,7 +72,7 @@ ElevatedButton(
 );
 ```
 
-## Customize
+## API
 
 ### Release Notes Dialog
 
@@ -102,14 +106,18 @@ ElevatedButton(
 
 ### Release
 
-| Type                 | Property      | Default  | Description |
-| -------------------- | ------------- | -------- | ----------- |
-| String               | versionNumber | REQUIRED |             |
-| List<ReleaseSublist> | subLists      | REQUIRED |             |
+| Type                 | Property      | Default  | Description                         |
+| -------------------- | ------------- | -------- | ----------------------------------- |
+| String               | versionNumber | REQUIRED | The version number of this release. |
+| List<ReleaseSublist> | subLists      | REQUIRED | The sublists of this release.       |
 
 ### ReleaseSublist
 
-| Type         | Property | Default   | Description |
-| ------------ | -------- | --------- | ----------- |
-| String       | name     | 'Changes' |             |
-| List<String> | changes  | const []  |             |
+| Type         | Property | Default   | Description                         |
+| ------------ | -------- | --------- | ----------------------------------- |
+| String       | name     | 'Changes' | The name of this sublist.           |
+| List<String> | changes  | const []  | The list of changes of this sublist |
+
+## Contributions
+
+Contributions, feature requests and bug reports are welcomed!
