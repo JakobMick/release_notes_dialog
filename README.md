@@ -10,7 +10,7 @@ In your pubspec.yaml:
 
 ```dart
 dependencies:
-    release_notes_dialog: "^1.2.0"
+    release_notes_dialog: "^1.0.3"
 ```
 
 In your .dart file:
@@ -80,12 +80,12 @@ ElevatedButton(
 | ------------------- | -------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
 | Key?                | key                              | NULL                           | Controls how one widget replaces another widget in the tree.                                                                           |
 | BuildContext        | context                          | REQUIRED                       | The current build context.                                                                                                             |
-| List<Release>       | releases                         | const []                       | The list of releases.                                                                                                                  |
+| List<Release>       | releases                         | const [ ]                      | The list of releases.                                                                                                                  |
 | String              | title                            | 'Release Notes'                | The title of the dialog                                                                                                                |
 | String              | closeButtonString                | 'Close'                        | The text on the close button                                                                                                           |
 | **Dialog:**         |                                  |                                |                                                                                                                                        |
-| double?             | width                            | mediaQuery.size.width \* 0.75  |                                                                                                                                        |
-| double?             | height                           | mediaQuery.size.height \* 0.75 |                                                                                                                                        |
+| double?             | width                            | mediaQuery.size.width \* 0.75  | The width of the dialog.                                                                                                               |
+| double?             | height                           | mediaQuery.size.height \* 0.75 | The height of the dialog.                                                                                                              |
 | Color?              | backgroundColor                  | NULL                           | The background color of the surface of this Dialog.                                                                                    |
 | double?             | elevation                        | NULL                           | The z-coordinate of this Dialog.                                                                                                       |
 | ShapeBorder?        | shape                            | NULL                           | The shape of this dialog's border.                                                                                                     |
@@ -116,7 +116,7 @@ ElevatedButton(
 | Type         | Property | Default   | Description                         |
 | ------------ | -------- | --------- | ----------------------------------- |
 | String       | name     | 'Changes' | The name of this sublist.           |
-| List<String> | changes  | const []  | The list of changes of this sublist |
+| List<String> | changes  | const [ ] | The list of changes of this sublist |
 
 ## Contributions
 
