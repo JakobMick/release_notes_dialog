@@ -3,6 +3,9 @@ library release_notes_dialog;
 import 'package:flutter/material.dart';
 import 'package:term_glyph/term_glyph.dart' as glyph;
 
+/// A [Release] to display in the [ReleaseNotesDialog].
+/// 
+/// A [Release] contains a version number and a list of [ReleaseSublist]s.
 class Release {
   final String versionNumber;
   final List<ReleaseSublist> subLists;
@@ -10,6 +13,9 @@ class Release {
   Release(this.versionNumber, this.subLists);
 }
 
+/// An easy way to group your changes for each [release].
+/// 
+/// A [ReleaseSublist] contains a name and a list of changes.
 class ReleaseSublist {
   final String name;
   final List<String> changes;
@@ -17,6 +23,9 @@ class ReleaseSublist {
   ReleaseSublist({this.name = "Changes", this.changes = const []});
 }
 
+/// An easy to use and customizable release notes dialog.
+/// 
+/// The [ReleaseNotesDialog] requires the current [BuildContext] and a list of [Release]s.
 class ReleaseNotesDialog {
   final Key? key;
   final BuildContext context;
