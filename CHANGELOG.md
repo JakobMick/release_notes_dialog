@@ -1,3 +1,7 @@
+## COMING SOON
+
+-   Added documentation comments
+
 ## [1.0.3] - 11.04.2021
 
 -   Fixed README
