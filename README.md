@@ -10,7 +10,7 @@ In your pubspec.yaml:
 
 ```dart
 dependencies:
-    release_notes_dialog: "^1.0.3"
+    release_notes_dialog: "^1.1.0"
 ```
 
 In your .dart file:
@@ -62,12 +62,11 @@ Show the dialog:
 
 ```dart
 ElevatedButton(
-    onPressed: () {
-        ReleaseNotesDialog(
-            context,
-            releases: releases,
-        )..show();
-    },
+    onPressed: () => showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ReleaseNotesDialog(releases: releases);
+        }),
     child: Text("Show Dialog"),
 );
 ```
@@ -76,33 +75,31 @@ ElevatedButton(
 
 ### Release Notes Dialog
 
-| Type                | Property                         | Default                        | Description                                                                                                                            |
-| ------------------- | -------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Key?                | key                              | NULL                           | Controls how one widget replaces another widget in the tree.                                                                           |
-| BuildContext        | context                          | REQUIRED                       | The current build context.                                                                                                             |
-| List<Release>       | releases                         | const [ ]                      | The list of releases.                                                                                                                  |
-| String              | title                            | 'Release Notes'                | The title of the dialog                                                                                                                |
-| String              | closeButtonString                | 'Close'                        | The text on the close button                                                                                                           |
-| **Dialog:**         |                                  |                                |                                                                                                                                        |
-| double?             | width                            | mediaQuery.size.width \* 0.75  | The width of the dialog.                                                                                                               |
-| double?             | height                           | mediaQuery.size.height \* 0.75 | The height of the dialog.                                                                                                              |
-| Color?              | backgroundColor                  | NULL                           | The background color of the surface of this Dialog.                                                                                    |
-| double?             | elevation                        | NULL                           | The z-coordinate of this Dialog.                                                                                                       |
-| ShapeBorder?        | shape                            | NULL                           | The shape of this dialog's border.                                                                                                     |
-| bool                | barrierDismissible               | true                           | If the dialog should be dissmissable by tapping on the barrier.                                                                        |
-| String?             | semanticLabel                    | NULL                           | The semantic label of the dialog used by accessibility frameworks to announce screen transitions when the dialog is opened and closed. |
-| **Content:**        |                                  |                                |                                                                                                                                        |
-| EdgeInsetsGeometry? | titlePadding                     | NULL                           | Padding around the title.                                                                                                              |
-| EdgeInsetsGeometry? | contentPadding                   | NULL                           | Padding around the content.                                                                                                            |
-| double              | paddingBetweenReleases           | 32.5                           | Padding between releases.                                                                                                              |
-| double              | paddingBeneathVersionNumber      | 12.5                           | Padding beneath release version numbers.                                                                                               |
-| double              | paddingBetweenReleaseSublists    | 10.0                           | Padding beneath release sublists.                                                                                                      |
-| double              | paddingBeneathReleaseSublistName | 5.0                            | Padding beneath release sublist names.                                                                                                 |
-| double              | paddingBetweenChanges            | 0.0                            | Padding between changes.                                                                                                               |
-| TextStyle?          | titleTextStyle                   | NULL                           | Style for the text in the title of this AlertDialog.                                                                                   |
-| TextStyle?          | versionNumberTextStyle           | NULL                           | Style for the version numbers.                                                                                                         |
-| TextStyle?          | releaseSublistNameTextStyle      | NULL                           | Style for release sublist names.                                                                                                       |
-| TextStyle?          | changeTextStyle                  | NULL                           | Style for changes                                                                                                                      |
+| Type               | Property                         | Default                                                                                            | Description                                                                                                                            |
+| ------------------ | -------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Key                | key                              | NULL                                                                                               | Controls how one widget replaces another widget in the tree.                                                                           |
+| List<Release>      | releases                         | RQUIRED                                                                                            | The list of releases.                                                                                                                  |
+| String             | title                            | 'Release Notes'                                                                                    | The title of the dialog                                                                                                                |
+| String             | closeButtonString                | 'Close'                                                                                            | The text on the close button                                                                                                           |
+| **Dialog:**        |                                  |                                                                                                    |                                                                                                                                        |
+| double             | width                            | mediaQuery.size.width \* 0.75                                                                      | The width of the dialog.                                                                                                               |
+| double             | height                           | mediaQuery.size.height \* 0.75                                                                     | The height of the dialog.                                                                                                              |
+| Color              | backgroundColor                  | ThemeData.dialogBackgroundColor                                                                    | The background color of the surface of this Dialog.                                                                                    |
+| double             | elevation                        | DialogTheme.elevation                                                                              | The z-coordinate of this dialog.                                                                                                       |
+| ShapeBorder        | shape                            | RoundedRectangleBorder with a radius of 4.0                                                        | The shape of this dialog's border.                                                                                                     |
+| String             | semanticLabel                    | 'Release Notes'                                                                                    | The semantic label of the dialog used by accessibility frameworks to announce screen transitions when the dialog is opened and closed. |
+| **Content:**       |                                  |                                                                                                    |                                                                                                                                        |
+| EdgeInsetsGeometry | titlePadding                     | const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0)                                                   | Padding around the title.                                                                                                              |
+| EdgeInsetsGeometry | contentPadding                   | const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0)                                                   | Padding around the content.                                                                                                            |
+| double             | paddingBetweenReleases           | 32.5                                                                                               | Padding between releases.                                                                                                              |
+| double             | paddingBeneathVersionNumber      | 12.5                                                                                               | Padding beneath release version numbers.                                                                                               |
+| double             | paddingBetweenReleaseSublists    | 10.0                                                                                               | Padding beneath release sublists.                                                                                                      |
+| double             | paddingBeneathReleaseSublistName | 5.0                                                                                                | Padding beneath release sublist names.                                                                                                 |
+| double             | paddingBetweenChanges            | 0.0                                                                                                | Padding between changes.                                                                                                               |
+| TextStyle          | titleTextStyle                   | (dialogTheme.titleTextStyle ?? theme.textTheme.headline6!).copyWith(fontWeight: FontWeight.bold)   | Style for the text in the title of this AlertDialog.                                                                                   |
+| TextStyle          | versionNumberTextStyle           | (dialogTheme.titleTextStyle ?? theme.textTheme.headline6!).copyWith(fontWeight: FontWeight.bold)   | Style for the version numbers.                                                                                                         |
+| TextStyle          | releaseSublistNameTextStyle      | (dialogTheme.contentTextStyle ?? theme.textTheme.bodyText1!).copyWith(fontWeight: FontWeight.bold) | Style for release sublist names.                                                                                                       |
+| TextStyle          | changeTextStyle                  | dialogTheme.contentTextStyle ?? theme.textTheme.bodyText1!                                         | Style for changes                                                                                                                      |
 
 ### Release
 
