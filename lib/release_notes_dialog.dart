@@ -63,6 +63,7 @@ class ReleaseNotesDialog extends StatelessWidget {
     this.titleTextStyle,
     this.versionNumberTextStyle,
     this.releaseSublistNameTextStyle,
+    this.closeButtonTextStyle,
     this.changeTextStyle,
   }) : super(key: key);
 
@@ -176,6 +177,13 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults to
   /// [TextTheme.bodyText1] of [ThemeData.textTheme].
   final TextStyle? changeTextStyle;
+
+  /// The [TextStyle] for the [ReleaseSublist]s name.
+  ///
+  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults to
+  /// [TextTheme.bodyText1] of [ThemeData.textTheme]. Both of these defaults are
+  /// copied with [FontWeight.bold].
+  final TextStyle? closeButtonTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -309,7 +317,7 @@ class ReleaseNotesDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(closeButtonString),
+          child: Text(closeButtonString,style:closeButtonTextStyle),
         )
       ],
     );
