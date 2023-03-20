@@ -1,3 +1,7 @@
+## []
+
+- Added close button text style
+
 ## [1.1.0] - 16.04.2021
 
 - Breaking: ReleaseNotesDialog is now a StatelessWidget. You can show it with showDialog().
