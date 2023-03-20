@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  term_glyph: "^1.2.1"
+  term_glyph: "^1.2.0"
 
 dev_dependencies:
   flutter_test:
