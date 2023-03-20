@@ -154,35 +154,29 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// The [TextStyle] for the dialogs title.
   ///
   /// Defaults to [DialogTheme.titleTextStyle] and if that is null, defaults to
-  /// [TextTheme.headline6] of [ThemeData.textTheme]. Both of these defaults are
-  /// copied with [FontWeight.bold].
+  /// [TextTheme.headlineMedium] of [ThemeData.textTheme]..
   final TextStyle? titleTextStyle;
 
   /// The [TextStyle] for the [Release]s version number.
   ///
-  /// Defaults to [DialogTheme.titleTextStyle] and if that is null, defaults to
-  /// [TextTheme.headline6] of [ThemeData.textTheme]. Both of these defaults are
-  /// copied with [FontWeight.bold].
+  /// Defaults to [TextTheme.titleMedium] of [ThemeData.textTheme].
   final TextStyle? versionNumberTextStyle;
 
   /// The [TextStyle] for the [ReleaseSublist]s name.
   ///
-  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults to
-  /// [TextTheme.bodyText1] of [ThemeData.textTheme]. Both of these defaults are
-  /// copied with [FontWeight.bold].
+  /// Defaults to [TextTheme.titleSmall] of [ThemeData.textTheme].
   final TextStyle? releaseSublistNameTextStyle;
 
   /// The [TextStyle] for the each change.
   ///
   /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults to
-  /// [TextTheme.bodyText1] of [ThemeData.textTheme].
+  /// [TextTheme.bodyMedium] of [ThemeData.textTheme].
   final TextStyle? changeTextStyle;
 
   /// The [TextStyle] for the [ReleaseSublist]s close button.
   ///
   /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults to
-  /// [TextTheme.bodyText1] of [ThemeData.textTheme]. Both of these defaults are
-  /// copied with [FontWeight.bold].
+  /// [TextTheme.bodyMedium] of [ThemeData.textTheme].
   final TextStyle? closeButtonTextStyle;
 
   @override
@@ -191,27 +185,23 @@ class ReleaseNotesDialog extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final DialogTheme dialogTheme = DialogTheme.of(context);
 
-    final TextStyle finalTitleTextStyle = titleTextStyle ??
-        (dialogTheme.titleTextStyle ?? theme.textTheme.headline6!)
-            .copyWith(fontWeight: FontWeight.bold);
+    final TextStyle? finalTitleTextStyle = titleTextStyle ??
+        dialogTheme.titleTextStyle ??
+        theme.textTheme.headlineMedium;
 
-    final TextStyle finalVersionNumberTextStyle = versionNumberTextStyle ??
-        (dialogTheme.titleTextStyle ?? theme.textTheme.headline6!)
-            .copyWith(fontWeight: FontWeight.bold);
+    final TextStyle? finalVersionNumberTextStyle =
+        versionNumberTextStyle ?? theme.textTheme.titleMedium;
 
-    final TextStyle finalReleaseSublistNameTextStyle =
-        releaseSublistNameTextStyle ??
-            (dialogTheme.contentTextStyle ?? theme.textTheme.bodyText1!)
-                .copyWith(fontWeight: FontWeight.bold);
+    final TextStyle? finalReleaseSublistNameTextStyle =
+        releaseSublistNameTextStyle ?? theme.textTheme.titleSmall;
 
-    final TextStyle finalChangeTextStyle = changeTextStyle ??
+    final TextStyle? finalChangeTextStyle = changeTextStyle ??
         dialogTheme.contentTextStyle ??
-        theme.textTheme.bodyText1!;
-        
-    final TextStyle finalCloseButtonTextStyle =
-        closeButtonTextStyle ??
-            (dialogTheme.contentTextStyle ?? theme.textTheme.bodyText1!)
-                .copyWith(fontWeight: FontWeight.bold);
+        theme.textTheme.bodyMedium;
+
+    final TextStyle? finalCloseButtonTextStyle = closeButtonTextStyle ??
+        dialogTheme.contentTextStyle ??
+        theme.textTheme.bodyMedium;
 
     return AlertDialog(
       key: key,

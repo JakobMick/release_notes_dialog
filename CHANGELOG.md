@@ -1,5 +1,7 @@
 ## []
 
+- Breaking: Update to Material 3 typography
+- Breaking: Change default styles
 - Added close button text style
 
 ## [1.1.0] - 16.04.2021
