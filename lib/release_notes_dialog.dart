@@ -63,8 +63,8 @@ class ReleaseNotesDialog extends StatelessWidget {
     this.titleTextStyle,
     this.versionNumberTextStyle,
     this.releaseSublistNameTextStyle,
-    this.closeButtonTextStyle,
     this.changeTextStyle,
+    this.closeButtonTextStyle,
   }) : super(key: key);
 
   /// The [Release]s of your software.
@@ -178,7 +178,7 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// [TextTheme.bodyText1] of [ThemeData.textTheme].
   final TextStyle? changeTextStyle;
 
-  /// The [TextStyle] for the [ReleaseSublist]s name.
+  /// The [TextStyle] for the [ReleaseSublist]s close button.
   ///
   /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults to
   /// [TextTheme.bodyText1] of [ThemeData.textTheme]. Both of these defaults are
@@ -207,6 +207,11 @@ class ReleaseNotesDialog extends StatelessWidget {
     final TextStyle finalChangeTextStyle = changeTextStyle ??
         dialogTheme.contentTextStyle ??
         theme.textTheme.bodyText1!;
+        
+    final TextStyle finalCloseButtonTextStyle =
+        closeButtonTextStyle ??
+            (dialogTheme.contentTextStyle ?? theme.textTheme.bodyText1!)
+                .copyWith(fontWeight: FontWeight.bold);
 
     return AlertDialog(
       key: key,
@@ -317,7 +322,7 @@ class ReleaseNotesDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(closeButtonString,style:closeButtonTextStyle),
+          child: Text(closeButtonString, style: finalCloseButtonTextStyle),
         )
       ],
     );
