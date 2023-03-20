@@ -10,7 +10,7 @@ In your pubspec.yaml:
 
 ```dart
 dependencies:
-    release_notes_dialog: "^1.1.0"
+    release_notes_dialog: "^1.2.0"
 ```
 
 In your .dart file:

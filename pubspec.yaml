@@ -1,6 +1,6 @@
 name: release_notes_dialog
 description: An easy to use release notes dialog. Customizable to fit your apps design.
-version: 1.1.0
+version: 1.2.0
 author: Jakob Mick<info@jakobmick.de>
 homepage: https://github.com/JakobMick/release_notes_dialog
 publish_to: https://pub.dev

@@ -1,4 +1,4 @@
-## []
+## [1.2.0] - 20.03.2023
 
 - Breaking: Update to Material 3 typography
 - Breaking: Change default styles
