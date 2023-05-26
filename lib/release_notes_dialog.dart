@@ -12,19 +12,20 @@ class Release {
   /// The verion number of this [Release].
   final String versionNumber;
 
-  /// A List of [ReleaseSublist]s. [ReleaseSublist]s are being used to group your
-  /// changes into fitting categories.
+  /// A List of [ReleaseSublist]s. [ReleaseSublist]s are being used to group
+  /// your changes into fitting categories.
   final List<ReleaseSublist> subLists;
 }
 
 /// An easy way to group your changes for each [Release].
 ///
-/// A [ReleaseSublist] is being used to break down your releases into suitable categories.
-/// For example features, bug fixes, improvements or other.
+/// A [ReleaseSublist] is being used to break down your releases into suitable
+/// categories. For example features, bug fixes, improvements or other.
 ///
 /// A [ReleaseSublist] contains a name and a list of changes.
 class ReleaseSublist {
-  /// Creates a [ReleaseSublist] for your [Release]s to display in the [ReleaseNotesDialog].
+  /// Creates a [ReleaseSublist] for your [Release]s to display in the
+  /// [ReleaseNotesDialog].
   const ReleaseSublist({
     this.name = "Changes",
     this.bullet,
@@ -194,14 +195,14 @@ class ReleaseNotesDialog extends StatelessWidget {
 
   /// The [TextStyle] for the each change.
   ///
-  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults to
-  /// [TextTheme.bodyMedium] of [ThemeData.textTheme].
+  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults
+  /// to [TextTheme.bodyMedium] of [ThemeData.textTheme].
   final TextStyle? changeTextStyle;
 
   /// The [TextStyle] for the [ReleaseSublist]s close button.
   ///
-  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults to
-  /// [TextTheme.bodyMedium] of [ThemeData.textTheme].
+  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults
+  /// to [TextTheme.bodyMedium] of [ThemeData.textTheme].
   final TextStyle? closeButtonTextStyle;
 
   @override
