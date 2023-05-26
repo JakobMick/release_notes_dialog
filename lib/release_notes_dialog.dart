@@ -240,6 +240,14 @@ class ReleaseNotesDialog extends StatelessWidget {
       shape: shape,
       elevation: elevation,
       semanticLabel: semanticLabel,
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(closeButtonString, style: finalCloseButtonTextStyle),
+        )
+      ],
       content: Container(
         width: width ?? mediaQuery.size.width * 0.75,
         height: height ?? mediaQuery.size.height * 0.75,
@@ -248,6 +256,11 @@ class ReleaseNotesDialog extends StatelessWidget {
         //
         child: ListView.separated(
           itemCount: releases.length,
+          separatorBuilder: (BuildContext context, int index) {
+            return SizedBox(
+              height: paddingBetweenReleases,
+            );
+          },
           itemBuilder: (BuildContext context, int releaseIndex) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,6 +281,11 @@ class ReleaseNotesDialog extends StatelessWidget {
                   itemCount: releases[releaseIndex].subLists.length,
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: paddingBetweenReleaseSublists,
+                    );
+                  },
                   itemBuilder: (BuildContext context, int sublistIndex) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,6 +308,11 @@ class ReleaseNotesDialog extends StatelessWidget {
                               .length,
                           shrinkWrap: true,
                           physics: const ClampingScrollPhysics(),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox(
+                              height: paddingBetweenChanges,
+                            );
+                          },
                           itemBuilder: (BuildContext context, int changeIndex) {
                             return Row(
                               textBaseline: TextBaseline.alphabetic,
@@ -317,39 +340,16 @@ class ReleaseNotesDialog extends StatelessWidget {
                               ],
                             );
                           },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(
-                              height: paddingBetweenChanges,
-                            );
-                          },
                         )
                       ],
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: paddingBetweenReleaseSublists,
                     );
                   },
                 )
               ],
             );
           },
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(
-              height: paddingBetweenReleases,
-            );
-          },
         ),
       ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text(closeButtonString, style: finalCloseButtonTextStyle),
-        )
-      ],
     );
   }
 }
