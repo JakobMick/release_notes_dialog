@@ -1,7 +1,6 @@
 library release_notes_dialog;
 
 import 'package:flutter/material.dart';
-import 'package:term_glyph/term_glyph.dart' as glyph;
 
 /// A [Release] to display in the [ReleaseNotesDialog].
 ///
@@ -270,7 +269,7 @@ class ReleaseNotesDialog extends StatelessWidget {
                               textBaseline: TextBaseline.alphabetic,
                               crossAxisAlignment: CrossAxisAlignment.baseline,
                               children: [
-                                Text(glyph.bullet + " "),
+                                Text("• "),
                                 Expanded(
                                   child: Text(
                                     releases[releaseIndex]
