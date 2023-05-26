@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.3.0] - Next
+## [1.3.0] - 26.05.2023
 
 - Breaking: Changed how default dialog sizing works
 - Added custom bullets
