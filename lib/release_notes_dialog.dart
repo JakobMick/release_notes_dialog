@@ -250,13 +250,14 @@ class ReleaseNotesDialog extends StatelessWidget {
         )
       ],
       content: Container(
-        width: width ?? mediaQuery.size.width * 0.75,
-        height: height ?? mediaQuery.size.height * 0.75,
+        width: width ?? double.minPositive,
+        height: height,
         //
         // Release Listview
         //
         child: ListView.separated(
           itemCount: releases.length,
+          shrinkWrap: true,
           separatorBuilder: (BuildContext context, int index) {
             return SizedBox(
               height: paddingBetweenReleases,
