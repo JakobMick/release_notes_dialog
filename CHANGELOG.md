@@ -1,3 +1,7 @@
+## [1.3.0] - 20.03.2023
+
+- Added custom bullets
+
 ## [1.2.0] - 20.03.2023
 
 - Breaking: Update to Material 3 typography

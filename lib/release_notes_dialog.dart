@@ -1,7 +1,6 @@
 library release_notes_dialog;
 
 import 'package:flutter/material.dart';
-import 'package:term_glyph/term_glyph.dart' as glyph;
 
 /// A [Release] to display in the [ReleaseNotesDialog].
 ///
@@ -26,10 +25,24 @@ class Release {
 /// A [ReleaseSublist] contains a name and a list of changes.
 class ReleaseSublist {
   /// Creates a [ReleaseSublist] for your [Release]s to display in the [ReleaseNotesDialog].
-  const ReleaseSublist({this.name = "Changes", this.changes = const []});
+  const ReleaseSublist({
+    this.name = "Changes",
+    this.bullet,
+    this.bulletPadding,
+    this.changes = const [],
+  });
 
   /// The name of this [ReleaseSublist].
   final String name;
+
+  /// The bullet used for this [ReleaseSublist]. If null, the
+  /// [ReleaseNotesDialog]'s bullet property is used. It defualts to '•'.
+  final String? bullet;
+
+  /// The padding behind the bullets used for this [ReleaseSublist]. If null,
+  /// the [ReleaseNotesDialog]'s bulletPadding property is used. It defualts to
+  /// 2.5.
+  final double? bulletPadding;
 
   /// The changes in this [ReleaseSublist].
   final List<String> changes;
@@ -46,6 +59,7 @@ class ReleaseNotesDialog extends StatelessWidget {
     Key? key,
     required this.releases,
     this.title = 'Release Notes',
+    this.bullet = '•',
     this.closeButtonString = 'Close',
     this.width,
     this.height,
@@ -55,6 +69,7 @@ class ReleaseNotesDialog extends StatelessWidget {
     this.semanticLabel = 'Release Notes',
     this.titlePadding = const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0),
     this.contentPadding = const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+    this.bulletPadding = 2.5,
     this.paddingBetweenReleases = 32.5,
     this.paddingBeneathVersionNumber = 12.5,
     this.paddingBetweenReleaseSublists = 10.0,
@@ -74,6 +89,11 @@ class ReleaseNotesDialog extends StatelessWidget {
   ///
   /// Defaults to 'Release Notes'.
   final String title;
+
+  /// The bullet used in the [ReleaseNotesDialog].
+  ///
+  /// Defaults to '•'.
+  final String bullet;
 
   /// The string of close button.
   ///
@@ -125,6 +145,11 @@ class ReleaseNotesDialog extends StatelessWidget {
   ///
   /// Defaults to const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0).
   final EdgeInsetsGeometry contentPadding;
+
+  /// The padding behind the bullets.
+  ///
+  /// Defaults to 2.5.
+  final double bulletPadding;
 
   /// The padding between the different [Release]s.
   ///
@@ -270,7 +295,17 @@ class ReleaseNotesDialog extends StatelessWidget {
                               textBaseline: TextBaseline.alphabetic,
                               crossAxisAlignment: CrossAxisAlignment.baseline,
                               children: [
-                                Text(glyph.bullet + " "),
+                                Text((releases[releaseIndex]
+                                            .subLists[sublistIndex]
+                                            .bullet ??
+                                        this.bullet) +
+                                    " "),
+                                SizedBox(
+                                  width: releases[releaseIndex]
+                                          .subLists[sublistIndex]
+                                          .bulletPadding ??
+                                      this.bulletPadding,
+                                ),
                                 Expanded(
                                   child: Text(
                                     releases[releaseIndex]
