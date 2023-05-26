@@ -1,3 +1,5 @@
+# Changelog
+
 ## [1.3.0] - Next
 
 - Breaking: Changed how default dialog sizing works
