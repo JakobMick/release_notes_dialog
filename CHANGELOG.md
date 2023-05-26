@@ -1,5 +1,6 @@
-## [1.3.0] - 20.03.2023
+## [1.3.0] - Next
 
+- Breaking: Changed how default dialog sizing works
 - Added custom bullets
 
 ## [1.2.0] - 20.03.2023
