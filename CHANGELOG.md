@@ -1,3 +1,10 @@
+# Changelog
+
+## [1.3.0] - 26.05.2023
+
+- Breaking: Changed how default dialog sizing works
+- Added custom bullets
+
 ## [1.2.0] - 20.03.2023
 
 - Breaking: Update to Material 3 typography

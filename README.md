@@ -80,10 +80,11 @@ ElevatedButton(
 | Key                | key                              | NULL                                                                                               | Controls how one widget replaces another widget in the tree.                                                                           |
 | List<Release>      | releases                         | RQUIRED                                                                                            | The list of releases.                                                                                                                  |
 | String             | title                            | 'Release Notes'                                                                                    | The title of the dialog                                                                                                                |
+| String             | bullet                           | '•'                                                                                                | The bullet used in the dialog.                                                                                                         |
 | String             | closeButtonString                | 'Close'                                                                                            | The text on the close button                                                                                                           |
 | **Dialog:**        |                                  |                                                                                                    |                                                                                                                                        |
-| double             | width                            | mediaQuery.size.width \* 0.75                                                                      | The width of the dialog.                                                                                                               |
-| double             | height                           | mediaQuery.size.height \* 0.75                                                                     | The height of the dialog.                                                                                                              |
+| double             | width                            | NULL                                                                                               | The width of the dialog.                                                                                                               |
+| double             | height                           | NULL                                                                                               | The height of the dialog.                                                                                                              |
 | Color              | backgroundColor                  | ThemeData.dialogBackgroundColor                                                                    | The background color of the surface of this Dialog.                                                                                    |
 | double             | elevation                        | DialogTheme.elevation                                                                              | The z-coordinate of this dialog.                                                                                                       |
 | ShapeBorder        | shape                            | RoundedRectangleBorder with a radius of 4.0                                                        | The shape of this dialog's border.                                                                                                     |
@@ -91,6 +92,7 @@ ElevatedButton(
 | **Content:**       |                                  |                                                                                                    |                                                                                                                                        |
 | EdgeInsetsGeometry | titlePadding                     | const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0)                                                   | Padding around the title.                                                                                                              |
 | EdgeInsetsGeometry | contentPadding                   | const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0)                                                   | Padding around the content.                                                                                                            |
+| double             | bulletPadding                    | const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0)                                                   | The padding behind the bullets.                                                                                                        |
 | double             | paddingBetweenReleases           | 32.5                                                                                               | Padding between releases.                                                                                                              |
 | double             | paddingBeneathVersionNumber      | 12.5                                                                                               | Padding beneath release version numbers.                                                                                               |
 | double             | paddingBetweenReleaseSublists    | 10.0                                                                                               | Padding beneath release sublists.                                                                                                      |
@@ -111,10 +113,12 @@ ElevatedButton(
 
 ### ReleaseSublist
 
-| Type         | Property | Default   | Description                         |
-| ------------ | -------- | --------- | ----------------------------------- |
-| String       | name     | 'Changes' | The name of this sublist.           |
-| List<String> | changes  | const [ ] | The list of changes of this sublist |
+| Type         | Property      | Default   | Description                                                                                                                    |
+| ------------ | ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| String       | name          | 'Changes' | The name of this sublist.                                                                                                      |
+| String       | bullet        | NULL      | The bullet used for this ReleaseSublist. If null, the ReleaseNotesDialog's bullet property is used.                            |
+| double       | bulletPadding | NULL      | The padding behind the bullets used for this ReleaseSublist. If null, the ReleaseNotesDialog's bulletPadding property is used. |
+| List<String> | changes       | const [ ] | The list of changes of this sublist.                                                                                           |
 
 ## Contributions
 

@@ -1,7 +1,6 @@
 library release_notes_dialog;
 
 import 'package:flutter/material.dart';
-import 'package:term_glyph/term_glyph.dart' as glyph;
 
 /// A [Release] to display in the [ReleaseNotesDialog].
 ///
@@ -13,23 +12,38 @@ class Release {
   /// The verion number of this [Release].
   final String versionNumber;
 
-  /// A List of [ReleaseSublist]s. [ReleaseSublist]s are being used to group your
-  /// changes into fitting categories.
+  /// A List of [ReleaseSublist]s. [ReleaseSublist]s are being used to group
+  /// your changes into fitting categories.
   final List<ReleaseSublist> subLists;
 }
 
 /// An easy way to group your changes for each [Release].
 ///
-/// A [ReleaseSublist] is being used to break down your releases into suitable categories.
-/// For example features, bug fixes, improvements or other.
+/// A [ReleaseSublist] is being used to break down your releases into suitable
+/// categories. For example features, bug fixes, improvements or other.
 ///
 /// A [ReleaseSublist] contains a name and a list of changes.
 class ReleaseSublist {
-  /// Creates a [ReleaseSublist] for your [Release]s to display in the [ReleaseNotesDialog].
-  const ReleaseSublist({this.name = "Changes", this.changes = const []});
+  /// Creates a [ReleaseSublist] for your [Release]s to display in the
+  /// [ReleaseNotesDialog].
+  const ReleaseSublist({
+    this.name = "Changes",
+    this.bullet,
+    this.bulletPadding,
+    this.changes = const [],
+  });
 
   /// The name of this [ReleaseSublist].
   final String name;
+
+  /// The bullet used for this [ReleaseSublist]. If null, the
+  /// [ReleaseNotesDialog]'s bullet property is used. It defualts to '•'.
+  final String? bullet;
+
+  /// The padding behind the bullets used for this [ReleaseSublist]. If null,
+  /// the [ReleaseNotesDialog]'s bulletPadding property is used. It defualts to
+  /// 2.5.
+  final double? bulletPadding;
 
   /// The changes in this [ReleaseSublist].
   final List<String> changes;
@@ -46,6 +60,7 @@ class ReleaseNotesDialog extends StatelessWidget {
     Key? key,
     required this.releases,
     this.title = 'Release Notes',
+    this.bullet = '•',
     this.closeButtonString = 'Close',
     this.width,
     this.height,
@@ -55,6 +70,7 @@ class ReleaseNotesDialog extends StatelessWidget {
     this.semanticLabel = 'Release Notes',
     this.titlePadding = const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0),
     this.contentPadding = const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+    this.bulletPadding = 2.5,
     this.paddingBetweenReleases = 32.5,
     this.paddingBeneathVersionNumber = 12.5,
     this.paddingBetweenReleaseSublists = 10.0,
@@ -74,6 +90,11 @@ class ReleaseNotesDialog extends StatelessWidget {
   ///
   /// Defaults to 'Release Notes'.
   final String title;
+
+  /// The bullet used in the [ReleaseNotesDialog].
+  ///
+  /// Defaults to '•'.
+  final String bullet;
 
   /// The string of close button.
   ///
@@ -126,6 +147,11 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// Defaults to const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0).
   final EdgeInsetsGeometry contentPadding;
 
+  /// The padding behind the bullets.
+  ///
+  /// Defaults to 2.5.
+  final double bulletPadding;
+
   /// The padding between the different [Release]s.
   ///
   /// Defaults to 32.5.
@@ -169,19 +195,18 @@ class ReleaseNotesDialog extends StatelessWidget {
 
   /// The [TextStyle] for the each change.
   ///
-  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults to
-  /// [TextTheme.bodyMedium] of [ThemeData.textTheme].
+  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults
+  /// to [TextTheme.bodyMedium] of [ThemeData.textTheme].
   final TextStyle? changeTextStyle;
 
   /// The [TextStyle] for the [ReleaseSublist]s close button.
   ///
-  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults to
-  /// [TextTheme.bodyMedium] of [ThemeData.textTheme].
+  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults
+  /// to [TextTheme.bodyMedium] of [ThemeData.textTheme].
   final TextStyle? closeButtonTextStyle;
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
     final ThemeData theme = Theme.of(context);
     final DialogTheme dialogTheme = DialogTheme.of(context);
 
@@ -215,14 +240,28 @@ class ReleaseNotesDialog extends StatelessWidget {
       shape: shape,
       elevation: elevation,
       semanticLabel: semanticLabel,
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(closeButtonString, style: finalCloseButtonTextStyle),
+        )
+      ],
       content: Container(
-        width: width ?? mediaQuery.size.width * 0.75,
-        height: height ?? mediaQuery.size.height * 0.75,
+        width: width ?? double.minPositive,
+        height: height,
         //
         // Release Listview
         //
         child: ListView.separated(
           itemCount: releases.length,
+          shrinkWrap: true,
+          separatorBuilder: (BuildContext context, int index) {
+            return SizedBox(
+              height: paddingBetweenReleases,
+            );
+          },
           itemBuilder: (BuildContext context, int releaseIndex) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,6 +282,11 @@ class ReleaseNotesDialog extends StatelessWidget {
                   itemCount: releases[releaseIndex].subLists.length,
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: paddingBetweenReleaseSublists,
+                    );
+                  },
                   itemBuilder: (BuildContext context, int sublistIndex) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,12 +309,26 @@ class ReleaseNotesDialog extends StatelessWidget {
                               .length,
                           shrinkWrap: true,
                           physics: const ClampingScrollPhysics(),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox(
+                              height: paddingBetweenChanges,
+                            );
+                          },
                           itemBuilder: (BuildContext context, int changeIndex) {
                             return Row(
                               textBaseline: TextBaseline.alphabetic,
                               crossAxisAlignment: CrossAxisAlignment.baseline,
                               children: [
-                                Text(glyph.bullet + " "),
+                                Text(releases[releaseIndex]
+                                        .subLists[sublistIndex]
+                                        .bullet ??
+                                    this.bullet),
+                                SizedBox(
+                                  width: releases[releaseIndex]
+                                          .subLists[sublistIndex]
+                                          .bulletPadding ??
+                                      this.bulletPadding,
+                                ),
                                 Expanded(
                                   child: Text(
                                     releases[releaseIndex]
@@ -282,39 +340,16 @@ class ReleaseNotesDialog extends StatelessWidget {
                               ],
                             );
                           },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(
-                              height: paddingBetweenChanges,
-                            );
-                          },
                         )
                       ],
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: paddingBetweenReleaseSublists,
                     );
                   },
                 )
               ],
             );
           },
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(
-              height: paddingBetweenReleases,
-            );
-          },
         ),
       ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text(closeButtonString, style: finalCloseButtonTextStyle),
-        )
-      ],
     );
   }
 }
