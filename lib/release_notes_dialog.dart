@@ -320,11 +320,10 @@ class ReleaseNotesDialog extends StatelessWidget {
                               textBaseline: TextBaseline.alphabetic,
                               crossAxisAlignment: CrossAxisAlignment.baseline,
                               children: [
-                                Text((releases[releaseIndex]
-                                            .subLists[sublistIndex]
-                                            .bullet ??
-                                        this.bullet) +
-                                    " "),
+                                Text(releases[releaseIndex]
+                                        .subLists[sublistIndex]
+                                        .bullet ??
+                                    this.bullet),
                                 SizedBox(
                                   width: releases[releaseIndex]
                                           .subLists[sublistIndex]
