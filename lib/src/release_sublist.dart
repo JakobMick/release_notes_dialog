@@ -8,24 +8,25 @@ class ReleaseSublist {
   /// Creates a [ReleaseSublist] for your [Release]s to display in the
   /// [ReleaseNotesDialog].
   const ReleaseSublist({
-    this.name = "Changes",
-    this.bullet,
-    this.bulletPadding,
+    this.title = "Changes",
     this.changes = const [],
+    this.bullet,
+    this.bulletSpacing,
   });
 
-  /// The name of this [ReleaseSublist].
-  final String name;
-
-  /// The bullet used for this [ReleaseSublist]. If null, the
-  /// [ReleaseNotesDialog]'s bullet property is used. It defualts to '•'.
-  final String? bullet;
-
-  /// The padding behind the bullets used for this [ReleaseSublist]. If null,
-  /// the [ReleaseNotesDialog]'s bulletPadding property is used. It defualts to
-  /// 2.5.
-  final double? bulletPadding;
+  /// The title of this [ReleaseSublist].
+  final String title;
 
   /// The changes in this [ReleaseSublist].
   final List<String> changes;
+
+  /// {@macro rnd.widget.bullet}
+  ///
+  /// It will only be used for this sublist.
+  final String? bullet;
+
+  /// {@macro rnd.widget.bulletSpacing}
+  ///
+  /// It will only be used for this sublist.
+  final double? bulletSpacing;
 }

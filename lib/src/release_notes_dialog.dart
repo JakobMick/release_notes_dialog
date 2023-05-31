@@ -22,20 +22,20 @@ class ReleaseNotesDialog extends StatelessWidget {
     this.semanticLabel = 'Release Notes',
     this.titlePadding,
     this.contentPadding,
-    this.bulletPadding = 2.5,
-    this.paddingBetweenReleases = 32.5,
-    this.paddingBeneathVersionNumber = 12.5,
-    this.paddingBetweenReleaseSublists = 10.0,
-    this.paddingBeneathReleaseSublistName = 5.0,
-    this.paddingBetweenChanges = 0.0,
+    this.bulletSpacing = 2.5,
+    this.releaseSpacing = 12.5,
+    this.releaseTitleSpacing = 12.5,
+    this.sublistSpacing = 10.0,
+    this.sublistTitleSpacing = 5.0,
+    this.changeSpacing = 0.0,
     this.titleTextStyle,
-    this.versionNumberTextStyle,
-    this.releaseSublistNameTextStyle,
+    this.releaseTitleTextStyle,
+    this.sublistTitleTextStyle,
     this.changeTextStyle,
     this.closeButtonTextStyle,
   }) : super(key: key);
 
-  /// The [Release]s of your software.
+  /// {@macro rnd.widget.releases}
   final List<Release> releases;
 
   /// The title of the [ReleaseNotesDialog].
@@ -43,14 +43,10 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// Defaults to 'Release Notes'.
   final String title;
 
-  /// The bullet used in the [ReleaseNotesDialog].
-  ///
-  /// Defaults to '•'.
+  /// {@macro rnd.widget.bullet}
   final String bullet;
 
   /// The string of close button.
-  ///
-  /// Defaults to 'Close'.
   final String? closeButtonString;
 
   /// {@macro flutter.material.dialog.backgroundColor}
@@ -65,7 +61,7 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// The semantic label of the dialog used by accessibility frameworks to
   /// announce screen transitions when the dialog is opened and closed.
   ///
-  /// Default to 'Release Notes'.
+  /// Defaults to 'Release Notes'.
   ///
   /// See also:
   ///
@@ -83,62 +79,37 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// Defaults to const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0).
   final EdgeInsetsGeometry? contentPadding;
 
-  /// The padding behind the bullets.
-  ///
-  /// Defaults to 2.5.
-  final double bulletPadding;
+  /// {@macro rnd.widget.bulletSpacing}
+  final double bulletSpacing;
 
-  /// The padding between the different [Release]s.
-  ///
-  /// Defaults to 32.5.
-  final double paddingBetweenReleases;
+  /// {@macro rnd.widget.releaseSpacing}
+  final double releaseSpacing;
 
-  /// The padding beneath the version number of each [Release].
-  ///
-  /// Defaults to 12.5.
-  final double paddingBeneathVersionNumber;
+  /// {@macro rnd.widget.releaseTitleSpacing}
+  final double releaseTitleSpacing;
 
-  /// The padding between the [ReleaseSublist]s of each [Release].
-  ///
-  /// Defaults to 10.0.
-  final double paddingBetweenReleaseSublists;
+  /// {@macro rnd.widget.sublistSpacing}
+  final double sublistSpacing;
 
-  /// The padding beneath the name of each [ReleaseSublist].
-  ///
-  /// Defaults to 5.0.
-  final double paddingBeneathReleaseSublistName;
+  /// {@macro rnd.widget.sublistTitleSpacing}
+  final double sublistTitleSpacing;
 
-  /// The padding between the single changes in each [ReleaseSublist].
-  ///
-  /// Defaults to 0.0.
-  final double paddingBetweenChanges;
+  /// {@macro rnd.widget.changeSpacing}
+  final double changeSpacing;
 
   /// The [TextStyle] for the dialogs title.
-  ///
-  /// Defaults to [DialogTheme.titleTextStyle] and if that is null, defaults to
-  /// [TextTheme.headlineMedium] of [ThemeData.textTheme]..
   final TextStyle? titleTextStyle;
 
-  /// The [TextStyle] for the [Release]s version number.
-  ///
-  /// Defaults to [TextTheme.titleMedium] of [ThemeData.textTheme].
-  final TextStyle? versionNumberTextStyle;
+  /// {@macro rnd.widget.releaseTitleTextStyle}
+  final TextStyle? releaseTitleTextStyle;
 
-  /// The [TextStyle] for the [ReleaseSublist]s name.
-  ///
-  /// Defaults to [TextTheme.titleSmall] of [ThemeData.textTheme].
-  final TextStyle? releaseSublistNameTextStyle;
+  /// {@macro rnd.widget.sublistTitleTextStyle}
+  final TextStyle? sublistTitleTextStyle;
 
-  /// The [TextStyle] for the each change.
-  ///
-  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults
-  /// to [TextTheme.bodyMedium] of [ThemeData.textTheme].
+  /// {@macro rnd.widget.changeTextStyle}
   final TextStyle? changeTextStyle;
 
-  /// The [TextStyle] for the [ReleaseSublist]s close button.
-  ///
-  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults
-  /// to [TextTheme.bodyMedium] of [ThemeData.textTheme].
+  /// The [TextStyle] for the [ReleaseNotesDialog]s close button.
   final TextStyle? closeButtonTextStyle;
 
   @override
@@ -161,6 +132,16 @@ class ReleaseNotesDialog extends StatelessWidget {
       semanticLabel: semanticLabel,
       content: ReleaseNotesWidget(
         releases: releases,
+        bullet: bullet,
+        bulletSpacing: bulletSpacing,
+        releaseSpacing: releaseSpacing,
+        releaseTitleSpacing: releaseTitleSpacing,
+        sublistSpacing: sublistSpacing,
+        sublistTitleSpacing: sublistTitleSpacing,
+        changeSpacing: changeSpacing,
+        releaseTitleTextStyle: releaseTitleTextStyle,
+        sublistTitleTextStyle: sublistTitleTextStyle,
+        changeTextStyle: changeTextStyle,
       ),
       actions: [
         TextButton(

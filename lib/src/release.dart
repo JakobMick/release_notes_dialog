@@ -5,12 +5,12 @@ import 'package:release_notes_dialog/src/release_sublist.dart';
 /// A [Release] contains a version number and a list of [ReleaseSublist]s.
 class Release {
   /// Creates a [Release] to display in the [ReleaseNotesDialog].
-  const Release(this.versionNumber, this.subLists);
+  const Release(this.title, this.sublists);
 
-  /// The verion number of this [Release].
-  final String versionNumber;
+  /// The title of this [Release].
+  final String title;
 
   /// A List of [ReleaseSublist]s. [ReleaseSublist]s are being used to group
   /// your changes into fitting categories.
-  final List<ReleaseSublist> subLists;
+  final List<ReleaseSublist> sublists;
 }

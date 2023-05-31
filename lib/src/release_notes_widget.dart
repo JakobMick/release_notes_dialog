@@ -8,80 +8,100 @@ class ReleaseNotesWidget extends StatelessWidget {
     Key? key,
     required this.releases,
     this.bullet = '•',
-    this.bulletPadding = 2.5,
-    this.paddingBetweenReleases = 12.5,
-    this.paddingBeneathVersionNumber = 12.5,
-    this.paddingBetweenReleaseSublists = 10.0,
-    this.paddingBeneathReleaseSublistName = 5.0,
-    this.paddingBetweenChanges = 0.0,
-    this.versionNumberTextStyle,
-    this.releaseSublistNameTextStyle,
+    this.bulletSpacing = 2.5,
+    this.releaseSpacing = 12.5,
+    this.releaseTitleSpacing = 12.5,
+    this.sublistSpacing = 10.0,
+    this.sublistTitleSpacing = 5.0,
+    this.changeSpacing = 0.0,
+    this.releaseTitleTextStyle,
+    this.sublistTitleTextStyle,
     this.changeTextStyle,
   }) : super(key: key);
 
+  /// {@template rnd.widget.releases}
   /// The [Release]s of your software.
+  /// {@endtemplate}
   final List<Release> releases;
 
-  /// The bullet used in the [ReleaseNotesDialog].
+  /// {@template rnd.widget.bullet}
+  /// The bullet used in the [ReleaseNotesWidget].
   ///
   /// Defaults to '•'.
+  /// {@endtemplate}
   final String bullet;
 
-  /// The padding behind the bullets.
+  /// {@template rnd.widget.bulletSpacing}
+  /// The spacing behind the bullets.
   ///
   /// Defaults to 2.5.
-  final double bulletPadding;
+  /// {@endtemplate}
+  final double bulletSpacing;
 
-  /// The padding between the different [Release]s.
-  ///
-  /// Defaults to 32.5.
-  final double paddingBetweenReleases;
-
-  /// The padding beneath the version number of each [Release].
+  /// {@template rnd.widget.releaseSpacing}
+  /// The spacing between the different [Release]s.
   ///
   /// Defaults to 12.5.
-  final double paddingBeneathVersionNumber;
+  /// {@endtemplate}
+  final double releaseSpacing;
 
-  /// The padding between the [ReleaseSublist]s of each [Release].
+  /// {@template rnd.widget.releaseTitleSpacing}
+  /// The spacing beneath the version number of each [Release].
+  ///
+  /// Defaults to 12.5.
+  /// {@endtemplate}
+  final double releaseTitleSpacing;
+
+  /// {@template rnd.widget.sublistSpacing}
+  /// The spacing between the [ReleaseSublist]s of each [Release].
   ///
   /// Defaults to 10.0.
-  final double paddingBetweenReleaseSublists;
+  /// {@endtemplate}
+  final double sublistSpacing;
 
-  /// The padding beneath the name of each [ReleaseSublist].
+  /// {@template rnd.widget.sublistTitleSpacing}
+  /// The spacing beneath the name of each [ReleaseSublist].
   ///
   /// Defaults to 5.0.
-  final double paddingBeneathReleaseSublistName;
+  /// {@endtemplate}
+  final double sublistTitleSpacing;
 
-  /// The padding between the single changes in each [ReleaseSublist].
+  /// {@template rnd.widget.changeSpacing}
+  /// The spacing between the single changes in each [ReleaseSublist].
   ///
   /// Defaults to 0.0.
-  final double paddingBetweenChanges;
+  /// {@endtemplate}
+  final double changeSpacing;
 
-  /// The [TextStyle] for the [Release]s version number.
+  /// {@template rnd.widget.releaseTitleTextStyle}
+  /// The [TextStyle] for the [Release]s title.
   ///
   /// Defaults to [TextTheme.titleMedium] of [ThemeData.textTheme].
-  final TextStyle? versionNumberTextStyle;
+  /// {@endtemplate}
+  final TextStyle? releaseTitleTextStyle;
 
-  /// The [TextStyle] for the [ReleaseSublist]s name.
+  /// {@template rnd.widget.sublistTitleTextStyle}
+  /// The [TextStyle] for the [ReleaseSublist]s title.
   ///
   /// Defaults to [TextTheme.titleSmall] of [ThemeData.textTheme].
-  final TextStyle? releaseSublistNameTextStyle;
+  /// {@endtemplate}
+  final TextStyle? sublistTitleTextStyle;
 
+  /// {@template rnd.widget.changeTextStyle}
   /// The [TextStyle] for the each change.
   ///
-  /// Defaults to [DialogTheme.contentTextStyle] and if that is null, defaults
-  /// to [TextTheme.bodyMedium] of [ThemeData.textTheme].
+  /// Defaults to [TextTheme.bodyMedium] of [ThemeData.textTheme].
+  /// {@endtemplate}
   final TextStyle? changeTextStyle;
 
   Widget _getReleases(BuildContext context) {
     final ThemeData theme = Theme.of(context);
 
-    final TextStyle? finalVersionNumberTextStyle = versionNumberTextStyle ??
+    final TextStyle? finalVersionNumberTextStyle = releaseTitleTextStyle ??
         theme.textTheme.titleMedium?.copyWith(height: 1);
 
-    final TextStyle? finalReleaseSublistNameTextStyle =
-        releaseSublistNameTextStyle ??
-            theme.textTheme.titleSmall?.copyWith(height: 1);
+    final TextStyle? finalReleaseSublistNameTextStyle = sublistTitleTextStyle ??
+        theme.textTheme.titleSmall?.copyWith(height: 1);
 
     final TextStyle? finalChangeTextStyle =
         changeTextStyle ?? theme.textTheme.bodyMedium;
@@ -100,7 +120,7 @@ class ReleaseNotesWidget extends StatelessWidget {
               style: finalChangeTextStyle,
             ),
             SizedBox(
-              width: sublist.bulletPadding ?? this.bulletPadding,
+              width: sublist.bulletSpacing ?? this.bulletSpacing,
             ),
             Expanded(
               child: Text(
@@ -113,7 +133,7 @@ class ReleaseNotesWidget extends StatelessWidget {
 
         if (i < sublist.changes.length - 1)
           widgets.add(SizedBox(
-            height: paddingBetweenChanges,
+            height: changeSpacing,
           ));
       }
 
@@ -123,24 +143,24 @@ class ReleaseNotesWidget extends StatelessWidget {
     List<Widget> _getSublists(Release release) {
       List<Widget> widgets = [];
 
-      for (int i = 0; i < release.subLists.length; i++) {
+      for (int i = 0; i < release.sublists.length; i++) {
         widgets.addAll([
           Padding(
             padding: EdgeInsets.only(
-                bottom: release.subLists[i].changes.isNotEmpty
-                    ? paddingBeneathReleaseSublistName
+                bottom: release.sublists[i].changes.isNotEmpty
+                    ? sublistTitleSpacing
                     : 0),
             child: Text(
-              release.subLists[i].name,
+              release.sublists[i].title,
               style: finalReleaseSublistNameTextStyle,
             ),
           ),
-          ..._getChanges(release.subLists[i])
+          ..._getChanges(release.sublists[i])
         ]);
 
-        if (i < release.subLists.length - 1)
+        if (i < release.sublists.length - 1)
           widgets.add(SizedBox(
-            height: paddingBetweenReleaseSublists,
+            height: sublistSpacing,
           ));
       }
 
@@ -153,12 +173,10 @@ class ReleaseNotesWidget extends StatelessWidget {
       widgets.addAll([
         Padding(
           padding: EdgeInsets.only(
-            bottom: releases[i].subLists.isNotEmpty
-                ? paddingBeneathVersionNumber
-                : 0,
+            bottom: releases[i].sublists.isNotEmpty ? releaseTitleSpacing : 0,
           ),
           child: Text(
-            releases[i].versionNumber,
+            releases[i].title,
             style: finalVersionNumberTextStyle,
           ),
         ),
@@ -167,7 +185,7 @@ class ReleaseNotesWidget extends StatelessWidget {
 
       if (i < releases.length - 1)
         widgets.add(SizedBox(
-          height: paddingBetweenReleases,
+          height: releaseSpacing,
         ));
     }
 
