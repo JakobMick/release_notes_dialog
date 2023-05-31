@@ -65,19 +65,13 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// Defaults to mediaQuery.size.height * 0.75.
   final double? height;
 
-  /// The background color of the dialog.
-  ///
-  /// Defaults to [ThemeData.dialogBackgroundColor].
+  /// {@macro flutter.material.dialog.backgroundColor}
   final Color? backgroundColor;
 
-  /// The z-coordinate of the dialog.
-  ///
-  /// Defaults to [DialogTheme.elevation] and if that is null, defaults to 24.0.
+  /// {@macro flutter.material.dialog.elevation}
   final double? elevation;
 
-  /// The shape of the dialog's border.
-  ///
-  /// Defaults to a [RoundedRectangleBorder] with a radius of 4.0.
+  /// {@macro flutter.material.dialog.shape}
   final ShapeBorder? shape;
 
   /// The semantic label of the dialog used by accessibility frameworks to
