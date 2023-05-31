@@ -15,15 +15,15 @@ class ReleaseNotesDialog extends StatelessWidget {
     required this.releases,
     this.title = 'Release Notes',
     this.bullet = '•',
-    this.closeButtonString = 'Close',
+    this.closeButtonString,
     this.width,
     this.height,
     this.backgroundColor,
     this.elevation,
     this.shape,
     this.semanticLabel = 'Release Notes',
-    this.titlePadding = const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0),
-    this.contentPadding = const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
+    this.titlePadding,
+    this.contentPadding,
     this.bulletPadding = 2.5,
     this.paddingBetweenReleases = 32.5,
     this.paddingBeneathVersionNumber = 12.5,
@@ -53,7 +53,7 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// The string of close button.
   ///
   /// Defaults to 'Close'.
-  final String closeButtonString;
+  final String? closeButtonString;
 
   /// The width of the dialog.
   ///
@@ -94,12 +94,12 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// The padding around the dialogs title.
   ///
   /// Defaults to const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0).
-  final EdgeInsetsGeometry titlePadding;
+  final EdgeInsetsGeometry? titlePadding;
 
   /// The padding around the dialogs content.
   ///
   /// Defaults to const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0).
-  final EdgeInsetsGeometry contentPadding;
+  final EdgeInsetsGeometry? contentPadding;
 
   /// The padding behind the bullets.
   ///
@@ -162,22 +162,15 @@ class ReleaseNotesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final DialogTheme dialogTheme = DialogTheme.of(context);
-
-    final TextStyle? finalTitleTextStyle = titleTextStyle ??
-        dialogTheme.titleTextStyle ??
-        theme.textTheme.headlineMedium;
-
-    final TextStyle? finalCloseButtonTextStyle = closeButtonTextStyle ??
-        dialogTheme.contentTextStyle ??
-        theme.textTheme.bodyMedium;
+    final MaterialLocalizations localizations =
+        MaterialLocalizations.of(context);
 
     return AlertDialog(
       key: key,
       scrollable: true,
       title: Text(title),
       titlePadding: titlePadding,
-      titleTextStyle: finalTitleTextStyle,
+      titleTextStyle: titleTextStyle,
       contentPadding: contentPadding,
       contentTextStyle: changeTextStyle,
       backgroundColor: backgroundColor,
@@ -192,7 +185,13 @@ class ReleaseNotesDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(closeButtonString, style: finalCloseButtonTextStyle),
+          child: Text(
+            closeButtonString ??
+                (theme.useMaterial3
+                    ? localizations.closeButtonLabel
+                    : localizations.closeButtonLabel.toUpperCase()),
+            style: closeButtonTextStyle,
+          ),
         )
       ],
     );

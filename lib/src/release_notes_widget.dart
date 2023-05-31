@@ -9,7 +9,7 @@ class ReleaseNotesWidget extends StatelessWidget {
     required this.releases,
     this.bullet = '•',
     this.bulletPadding = 2.5,
-    this.paddingBetweenReleases = 32.5,
+    this.paddingBetweenReleases = 12.5,
     this.paddingBeneathVersionNumber = 12.5,
     this.paddingBetweenReleaseSublists = 10.0,
     this.paddingBeneathReleaseSublistName = 5.0,
@@ -75,17 +75,16 @@ class ReleaseNotesWidget extends StatelessWidget {
 
   Widget _getReleases(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final DialogTheme dialogTheme = DialogTheme.of(context);
 
-    final TextStyle? finalVersionNumberTextStyle =
-        versionNumberTextStyle ?? theme.textTheme.titleMedium;
+    final TextStyle? finalVersionNumberTextStyle = versionNumberTextStyle ??
+        theme.textTheme.titleMedium?.copyWith(height: 1);
 
     final TextStyle? finalReleaseSublistNameTextStyle =
-        releaseSublistNameTextStyle ?? theme.textTheme.titleSmall;
+        releaseSublistNameTextStyle ??
+            theme.textTheme.titleSmall?.copyWith(height: 1);
 
-    final TextStyle? finalChangeTextStyle = changeTextStyle ??
-        dialogTheme.contentTextStyle ??
-        theme.textTheme.bodyMedium;
+    final TextStyle? finalChangeTextStyle =
+        changeTextStyle ?? theme.textTheme.bodyMedium;
 
     List<Widget> _getChanges(ReleaseSublist sublist) {
       List<Widget> widgets = [];
@@ -96,7 +95,10 @@ class ReleaseNotesWidget extends StatelessWidget {
           textBaseline: TextBaseline.alphabetic,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(sublist.bullet ?? this.bullet),
+            Text(
+              sublist.bullet ?? this.bullet,
+              style: finalChangeTextStyle,
+            ),
             SizedBox(
               width: sublist.bulletPadding ?? this.bulletPadding,
             ),
@@ -104,7 +106,6 @@ class ReleaseNotesWidget extends StatelessWidget {
               child: Text(
                 sublist.changes[i],
                 style: finalChangeTextStyle,
-                textWidthBasis: TextWidthBasis.parent,
               ),
             ),
           ],
@@ -125,7 +126,10 @@ class ReleaseNotesWidget extends StatelessWidget {
       for (int i = 0; i < release.subLists.length; i++) {
         widgets.addAll([
           Padding(
-            padding: EdgeInsets.only(bottom: paddingBeneathReleaseSublistName),
+            padding: EdgeInsets.only(
+                bottom: release.subLists[i].changes.isNotEmpty
+                    ? paddingBeneathReleaseSublistName
+                    : 0),
             child: Text(
               release.subLists[i].name,
               style: finalReleaseSublistNameTextStyle,
@@ -149,7 +153,9 @@ class ReleaseNotesWidget extends StatelessWidget {
       widgets.addAll([
         Padding(
           padding: EdgeInsets.only(
-            bottom: paddingBeneathVersionNumber,
+            bottom: releases[i].subLists.isNotEmpty
+                ? paddingBeneathVersionNumber
+                : 0,
           ),
           child: Text(
             releases[i].versionNumber,
