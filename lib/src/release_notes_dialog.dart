@@ -16,8 +16,6 @@ class ReleaseNotesDialog extends StatelessWidget {
     this.title = 'Release Notes',
     this.bullet = '•',
     this.closeButtonString,
-    this.width,
-    this.height,
     this.backgroundColor,
     this.elevation,
     this.shape,
@@ -54,16 +52,6 @@ class ReleaseNotesDialog extends StatelessWidget {
   ///
   /// Defaults to 'Close'.
   final String? closeButtonString;
-
-  /// The width of the dialog.
-  ///
-  /// Defaults to mediaQuery.size.width * 0.75.
-  final double? width;
-
-  /// The height of the dialog.
-  ///
-  /// Defaults to mediaQuery.size.height * 0.75.
-  final double? height;
 
   /// {@macro flutter.material.dialog.backgroundColor}
   final Color? backgroundColor;

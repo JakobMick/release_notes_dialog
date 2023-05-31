@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0] - coming soon
+
+This is a complete rewrite of the package. Apologies for all the breaking changes. The package is stable now.
+
+- Breaking: Remove width and height parameters
+
 ## [1.3.0] - 26.05.2023
 
 - Breaking: Changed how default dialog sizing works
