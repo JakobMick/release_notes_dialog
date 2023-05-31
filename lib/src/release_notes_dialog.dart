@@ -174,7 +174,7 @@ class ReleaseNotesDialog extends StatelessWidget {
 
     return AlertDialog(
       key: key,
-      scrollable: false,
+      scrollable: true,
       title: Text(title),
       titlePadding: titlePadding,
       titleTextStyle: finalTitleTextStyle,
@@ -184,6 +184,9 @@ class ReleaseNotesDialog extends StatelessWidget {
       shape: shape,
       elevation: elevation,
       semanticLabel: semanticLabel,
+      content: ReleaseNotesWidget(
+        releases: releases,
+      ),
       actions: [
         TextButton(
           onPressed: () {
@@ -192,16 +195,6 @@ class ReleaseNotesDialog extends StatelessWidget {
           child: Text(closeButtonString, style: finalCloseButtonTextStyle),
         )
       ],
-      content: Container(
-        width: width ?? double.minPositive,
-        height: height,
-        //
-        // Release Listview
-        //
-        child: ReleaseNotesWidget(
-          releases: releases,
-        ),
-      ),
     );
   }
 }

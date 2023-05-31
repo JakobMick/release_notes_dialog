@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:release_notes_dialog/src/release_sublist.dart';
 import 'package:release_notes_dialog/src/release.dart';
 
 class ReleaseNotesWidget extends StatelessWidget {
@@ -72,8 +73,7 @@ class ReleaseNotesWidget extends StatelessWidget {
   /// to [TextTheme.bodyMedium] of [ThemeData.textTheme].
   final TextStyle? changeTextStyle;
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _getReleases(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final DialogTheme dialogTheme = DialogTheme.of(context);
 
@@ -87,100 +87,93 @@ class ReleaseNotesWidget extends StatelessWidget {
         dialogTheme.contentTextStyle ??
         theme.textTheme.bodyMedium;
 
-    return ListView.separated(
-      itemCount: releases.length,
-      shrinkWrap: true,
-      separatorBuilder: (BuildContext context, int index) {
-        return SizedBox(
-          height: paddingBetweenReleases,
-        );
-      },
-      itemBuilder: (BuildContext context, int releaseIndex) {
-        return Column(
+    List<Widget> _getChanges(ReleaseSublist sublist) {
+      List<Widget> widgets = [];
+
+      for (int i = 0; i < sublist.changes.length; i++) {
+        widgets.add(Row(
+          mainAxisSize: MainAxisSize.min,
+          textBaseline: TextBaseline.alphabetic,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.only(
-                bottom: paddingBeneathVersionNumber,
-              ),
+            Text(sublist.bullet ?? this.bullet),
+            SizedBox(
+              width: sublist.bulletPadding ?? this.bulletPadding,
+            ),
+            Expanded(
               child: Text(
-                releases[releaseIndex].versionNumber,
-                style: finalVersionNumberTextStyle,
+                sublist.changes[i],
+                style: finalChangeTextStyle,
+                textWidthBasis: TextWidthBasis.parent,
               ),
             ),
-            //
-            // Sublist Listview
-            //
-            ListView.separated(
-              itemCount: releases[releaseIndex].subLists.length,
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(
-                  height: paddingBetweenReleaseSublists,
-                );
-              },
-              itemBuilder: (BuildContext context, int sublistIndex) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          bottom: paddingBeneathReleaseSublistName),
-                      child: Text(
-                        releases[releaseIndex].subLists[sublistIndex].name,
-                        style: finalReleaseSublistNameTextStyle,
-                      ),
-                    ),
-                    //
-                    // Changes Listview
-                    //
-                    ListView.separated(
-                      itemCount: releases[releaseIndex]
-                          .subLists[sublistIndex]
-                          .changes
-                          .length,
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      separatorBuilder: (BuildContext context, int index) {
-                        return SizedBox(
-                          height: paddingBetweenChanges,
-                        );
-                      },
-                      itemBuilder: (BuildContext context, int changeIndex) {
-                        return Row(
-                          textBaseline: TextBaseline.alphabetic,
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          children: [
-                            Text(releases[releaseIndex]
-                                    .subLists[sublistIndex]
-                                    .bullet ??
-                                this.bullet),
-                            SizedBox(
-                              width: releases[releaseIndex]
-                                      .subLists[sublistIndex]
-                                      .bulletPadding ??
-                                  this.bulletPadding,
-                            ),
-                            Expanded(
-                              child: Text(
-                                releases[releaseIndex]
-                                    .subLists[sublistIndex]
-                                    .changes[changeIndex],
-                                style: finalChangeTextStyle,
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    )
-                  ],
-                );
-              },
-            )
           ],
-        );
-      },
+        ));
+
+        if (i < sublist.changes.length - 1)
+          widgets.add(SizedBox(
+            height: paddingBetweenChanges,
+          ));
+      }
+
+      return widgets;
+    }
+
+    List<Widget> _getSublists(Release release) {
+      List<Widget> widgets = [];
+
+      for (int i = 0; i < release.subLists.length; i++) {
+        widgets.addAll([
+          Padding(
+            padding: EdgeInsets.only(bottom: paddingBeneathReleaseSublistName),
+            child: Text(
+              release.subLists[i].name,
+              style: finalReleaseSublistNameTextStyle,
+            ),
+          ),
+          ..._getChanges(release.subLists[i])
+        ]);
+
+        if (i < release.subLists.length - 1)
+          widgets.add(SizedBox(
+            height: paddingBetweenReleaseSublists,
+          ));
+      }
+
+      return widgets;
+    }
+
+    List<Widget> widgets = [];
+
+    for (int i = 0; i < releases.length; i++) {
+      widgets.addAll([
+        Padding(
+          padding: EdgeInsets.only(
+            bottom: paddingBeneathVersionNumber,
+          ),
+          child: Text(
+            releases[i].versionNumber,
+            style: finalVersionNumberTextStyle,
+          ),
+        ),
+        ..._getSublists(releases[i])
+      ]);
+
+      if (i < releases.length - 1)
+        widgets.add(SizedBox(
+          height: paddingBetweenReleases,
+        ));
+    }
+
+    return ListBody(
+      children: widgets,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: _getReleases,
     );
   }
 }
