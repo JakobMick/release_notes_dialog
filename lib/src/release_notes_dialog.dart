@@ -3,6 +3,46 @@ import 'package:flutter/material.dart';
 import 'package:release_notes_dialog/src/release_notes_widget.dart';
 import 'package:release_notes_dialog/src/release.dart';
 
+void showReleaseNotesDialog({
+  required BuildContext context,
+  required List<Release> releases,
+  String? bullet,
+  double? bulletSpacing,
+  double? releaseSpacing,
+  double? releaseTitleSpacing,
+  double? sublistSpacing,
+  double? sublistTitleSpacing,
+  double? changeSpacing,
+  TextStyle? releaseTitleTextStyle,
+  TextStyle? sublistTitleTextStyle,
+  TextStyle? changeTextStyle,
+  bool useRootNavigator = true,
+  RouteSettings? routeSettings,
+  Offset? anchorPoint,
+}) {
+  showDialog<void>(
+    context: context,
+    useRootNavigator: useRootNavigator,
+    builder: (BuildContext context) {
+      return ReleaseNotesDialog(
+        releases: releases,
+        bullet: bullet,
+        bulletSpacing: bulletSpacing,
+        releaseSpacing: releaseSpacing,
+        releaseTitleSpacing: releaseTitleSpacing,
+        sublistSpacing: sublistSpacing,
+        sublistTitleSpacing: sublistTitleSpacing,
+        changeSpacing: changeSpacing,
+        releaseTitleTextStyle: releaseTitleTextStyle,
+        sublistTitleTextStyle: sublistTitleTextStyle,
+        changeTextStyle: changeTextStyle,
+      );
+    },
+    routeSettings: routeSettings,
+    anchorPoint: anchorPoint,
+  );
+}
+
 /// An easy to use and customizable [ReleaseNotesDialog].
 ///
 /// A [ReleaseNotesDialog] informs the user about changes to the software.
@@ -56,7 +96,7 @@ class ReleaseNotesDialog extends StatelessWidget {
   final String title;
 
   /// {@macro rnd.widget.bullet}
-  final String bullet;
+  final String? bullet;
 
   /// The string of close button.
   final String? closeButtonString;
@@ -171,22 +211,22 @@ class ReleaseNotesDialog extends StatelessWidget {
   final EdgeInsetsGeometry? buttonPadding;
 
   /// {@macro rnd.widget.bulletSpacing}
-  final double bulletSpacing;
+  final double? bulletSpacing;
 
   /// {@macro rnd.widget.releaseSpacing}
-  final double releaseSpacing;
+  final double? releaseSpacing;
 
   /// {@macro rnd.widget.releaseTitleSpacing}
-  final double releaseTitleSpacing;
+  final double? releaseTitleSpacing;
 
   /// {@macro rnd.widget.sublistSpacing}
-  final double sublistSpacing;
+  final double? sublistSpacing;
 
   /// {@macro rnd.widget.sublistTitleSpacing}
-  final double sublistTitleSpacing;
+  final double? sublistTitleSpacing;
 
   /// {@macro rnd.widget.changeSpacing}
-  final double changeSpacing;
+  final double? changeSpacing;
 
   /// The [TextStyle] for the dialogs title.
   final TextStyle? titleTextStyle;
