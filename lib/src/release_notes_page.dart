@@ -39,7 +39,7 @@ class ReleaseNotesPage extends StatelessWidget {
   const ReleaseNotesPage({
     Key? key,
     required this.releases,
-    this.title = "Release Notes",
+    this.title = 'Release Notes',
     this.bullet,
     this.bulletSpacing,
     this.releaseSpacing,

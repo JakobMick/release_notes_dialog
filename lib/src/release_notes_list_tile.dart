@@ -14,7 +14,7 @@ class ReleaseNotesListTile extends StatelessWidget {
     required this.releases,
     this.title = 'Release Notes',
     this.icon,
-    this.bullet = '•',
+    this.bullet,
     this.bulletSpacing,
     this.releaseSpacing,
     this.releaseTitleSpacing,

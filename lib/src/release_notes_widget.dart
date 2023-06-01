@@ -3,17 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:release_notes_dialog/src/release_sublist.dart';
 import 'package:release_notes_dialog/src/release.dart';
 
+const String _defaultBullet = "•";
+const double _defaultBulletSpacing = 2.5;
+const double _defaultReleaseSpacing = 12.5;
+const double _defaultReleaseTitleSpacing = 12.5;
+const double _defaultSublistSpacing = 10.0;
+const double _defaultSublistTitleSpacing = 5.0;
+const double _defaultChangeSpacing = 0.0;
+
 class ReleaseNotesWidget extends StatelessWidget {
-  const ReleaseNotesWidget({
+  ReleaseNotesWidget({
     Key? key,
     required this.releases,
-    this.bullet = '•',
-    this.bulletSpacing = 2.5,
-    this.releaseSpacing = 12.5,
-    this.releaseTitleSpacing = 12.5,
-    this.sublistSpacing = 10.0,
-    this.sublistTitleSpacing = 5.0,
-    this.changeSpacing = 0.0,
+    this.bullet,
+    this.bulletSpacing,
+    this.releaseSpacing,
+    this.releaseTitleSpacing,
+    this.sublistSpacing,
+    this.sublistTitleSpacing,
+    this.changeSpacing,
     this.releaseTitleTextStyle,
     this.sublistTitleTextStyle,
     this.changeTextStyle,
@@ -29,49 +37,49 @@ class ReleaseNotesWidget extends StatelessWidget {
   ///
   /// Defaults to '•'.
   /// {@endtemplate}
-  final String bullet;
+  late final String? bullet;
 
   /// {@template rnd.widget.bulletSpacing}
   /// The spacing behind the bullets.
   ///
   /// Defaults to 2.5.
   /// {@endtemplate}
-  final double bulletSpacing;
+  final double? bulletSpacing;
 
   /// {@template rnd.widget.releaseSpacing}
   /// The spacing between the different [Release]s.
   ///
   /// Defaults to 12.5.
   /// {@endtemplate}
-  final double releaseSpacing;
+  final double? releaseSpacing;
 
   /// {@template rnd.widget.releaseTitleSpacing}
   /// The spacing beneath the version number of each [Release].
   ///
   /// Defaults to 12.5.
   /// {@endtemplate}
-  final double releaseTitleSpacing;
+  final double? releaseTitleSpacing;
 
   /// {@template rnd.widget.sublistSpacing}
   /// The spacing between the [ReleaseSublist]s of each [Release].
   ///
   /// Defaults to 10.0.
   /// {@endtemplate}
-  final double sublistSpacing;
+  final double? sublistSpacing;
 
   /// {@template rnd.widget.sublistTitleSpacing}
   /// The spacing beneath the name of each [ReleaseSublist].
   ///
   /// Defaults to 5.0.
   /// {@endtemplate}
-  final double sublistTitleSpacing;
+  final double? sublistTitleSpacing;
 
   /// {@template rnd.widget.changeSpacing}
   /// The spacing between the single changes in each [ReleaseSublist].
   ///
   /// Defaults to 0.0.
   /// {@endtemplate}
-  final double changeSpacing;
+  final double? changeSpacing;
 
   /// {@template rnd.widget.releaseTitleTextStyle}
   /// The [TextStyle] for the [Release]s title.
@@ -116,11 +124,13 @@ class ReleaseNotesWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              sublist.bullet ?? this.bullet,
+              sublist.bullet ?? this.bullet ?? _defaultBullet,
               style: finalChangeTextStyle,
             ),
             SizedBox(
-              width: sublist.bulletSpacing ?? this.bulletSpacing,
+              width: sublist.bulletSpacing ??
+                  this.bulletSpacing ??
+                  _defaultBulletSpacing,
             ),
             Expanded(
               child: Text(
@@ -133,7 +143,7 @@ class ReleaseNotesWidget extends StatelessWidget {
 
         if (i < sublist.changes.length - 1)
           widgets.add(SizedBox(
-            height: changeSpacing,
+            height: changeSpacing ?? _defaultChangeSpacing,
           ));
       }
 
@@ -148,7 +158,7 @@ class ReleaseNotesWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(
                 bottom: release.sublists[i].changes.isNotEmpty
-                    ? sublistTitleSpacing
+                    ? (sublistTitleSpacing ?? _defaultSublistTitleSpacing)
                     : 0),
             child: Text(
               release.sublists[i].title,
@@ -160,7 +170,7 @@ class ReleaseNotesWidget extends StatelessWidget {
 
         if (i < release.sublists.length - 1)
           widgets.add(SizedBox(
-            height: sublistSpacing,
+            height: sublistSpacing ?? _defaultSublistSpacing,
           ));
       }
 
@@ -173,7 +183,9 @@ class ReleaseNotesWidget extends StatelessWidget {
       widgets.addAll([
         Padding(
           padding: EdgeInsets.only(
-            bottom: releases[i].sublists.isNotEmpty ? releaseTitleSpacing : 0,
+            bottom: releases[i].sublists.isNotEmpty
+                ? (releaseTitleSpacing ?? _defaultReleaseTitleSpacing)
+                : 0,
           ),
           child: Text(
             releases[i].title,
@@ -185,7 +197,7 @@ class ReleaseNotesWidget extends StatelessWidget {
 
       if (i < releases.length - 1)
         widgets.add(SizedBox(
-          height: releaseSpacing,
+          height: releaseSpacing ?? _defaultReleaseSpacing,
         ));
     }
 
