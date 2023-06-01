@@ -2,6 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:release_notes_dialog/src/release_notes_widget.dart';
 import 'package:release_notes_dialog/src/release.dart';
 
+void showReleaseNotesPage({
+  required BuildContext context,
+  required List<Release> releases,
+  String? bullet,
+  double? bulletSpacing,
+  double? releaseSpacing,
+  double? releaseTitleSpacing,
+  double? sublistSpacing,
+  double? sublistTitleSpacing,
+  double? changeSpacing,
+  TextStyle? releaseTitleTextStyle,
+  TextStyle? sublistTitleTextStyle,
+  TextStyle? changeTextStyle,
+  bool useRootNavigator = false,
+}) {
+  Navigator.of(context, rootNavigator: useRootNavigator)
+      .push(MaterialPageRoute<void>(builder: (BuildContext context) {
+    return ReleaseNotesPage(
+      releases: releases,
+      bullet: bullet,
+      bulletSpacing: bulletSpacing,
+      releaseSpacing: releaseSpacing,
+      releaseTitleSpacing: releaseTitleSpacing,
+      sublistSpacing: sublistSpacing,
+      sublistTitleSpacing: sublistTitleSpacing,
+      changeSpacing: changeSpacing,
+      releaseTitleTextStyle: releaseTitleTextStyle,
+      sublistTitleTextStyle: sublistTitleTextStyle,
+      changeTextStyle: changeTextStyle,
+    );
+  }));
+}
+
 class ReleaseNotesPage extends StatelessWidget {
   const ReleaseNotesPage({
     Key? key,
