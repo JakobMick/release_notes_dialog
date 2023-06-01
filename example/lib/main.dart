@@ -12,9 +12,9 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Release Notes Dialog Example',
+      title: 'ReleaseNotesDialog Example',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
       ),
       home: ExamplePage(),
     );
@@ -27,17 +27,19 @@ class ExamplePage extends StatelessWidget {
       "1.1.0",
       [
         ReleaseSublist(
-          name: "Features",
+          title: "Features",
           changes: [
             "Added new feature 1",
             "Added new feature 2",
+            "Added a very long feature to show how multiple lines work",
           ],
         ),
         ReleaseSublist(
-          name: "Fixes",
+          title: "Fixes",
           changes: [
             if (Platform.isAndroid) "Fixed bug on Android",
             if (Platform.isIOS) "Fixed bug on iOS",
+            "Fixed a very long bug to show multiple lines again",
             "Fixed bug 1",
             "Fixed bug 2",
             "Fixed bug 3",
@@ -47,29 +49,90 @@ class ExamplePage extends StatelessWidget {
     ),
     Release(
       "1.0.0",
-      [
-        ReleaseSublist(
-          name: "Release!",
-        ),
-      ],
+      [ReleaseSublist(title: "Release!")],
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Release notes dialog example'),
+        title: Text('ReleaseNotesDialog Example'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ReleaseNotesDialog(releases: releases);
-              }),
-          child: Text("Show Dialog"),
-        ),
+      body: ListView(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: 15),
+            child: Text(
+              "Dialogs",
+              style: theme.textTheme.headlineLarge,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ReleaseNotesDialog(releases: releases);
+                    }),
+                child: Text("Show ReleaseNotesDialog"),
+              ),
+              ElevatedButton(
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AboutDialog(
+                        applicationVersion: releases.first.title,
+                      );
+                    }),
+                child: Text("Show AboutDialog"),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 50, bottom: 15),
+            child: Text(
+              "Pages",
+              style: theme.textTheme.headlineLarge,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () => showReleaseNotesPage(
+                  context: context,
+                  releases: releases,
+                ),
+                child: Text("Show ReleaseNotesPage"),
+              ),
+              ElevatedButton(
+                onPressed: () => showLicensePage(
+                  context: context,
+                  applicationVersion: releases.first.title,
+                ),
+                child: Text("Show LicensePage"),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 50, bottom: 15),
+            child: Text(
+              "ListTiles",
+              style: theme.textTheme.headlineLarge,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          ReleaseNotesListTile(releases: releases),
+          AboutListTile(),
+        ],
       ),
     );
   }
