@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:release_notes_dialog/src/release_notes_dialog.dart';
 import 'package:release_notes_dialog/src/release.dart';
 
+/// An easy to use and customizable [ReleaseNotesListTile].
+///
+/// A [ReleaseNotesListTile] informs the user about changes to the software.
+///
+/// The arguments correspond to the properties on [showReleaseNotesDialog] and
+/// [ListTile].
 class ReleaseNotesListTile extends StatelessWidget {
-  /// Creates a list tile for showing an about box.
+  /// Creates a [ListTile] for showing a [ReleaseNotesDialog].
   ///
-  /// The arguments are all optional. The application name, if omitted, will be
-  /// derived from the nearest [Title] widget. The version, icon, and legalese
-  /// values default to the empty string.
+  /// Only the releases are required. All other arguments are optional.
   const ReleaseNotesListTile({
     Key? key,
     required this.releases,

@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:release_notes_dialog/src/release_notes_widget.dart';
 import 'package:release_notes_dialog/src/release.dart';
 
+/// Displays a [ReleaseNotesPage], which informs the user about changes to
+/// the software.
+///
+/// The arguments correspond to the properties on [ReleaseNotesPage].
+///
+/// The `context` argument is used to look up the [Navigator] for the page.
+///
+/// The `useRootNavigator` argument is used to determine whether to push the
+/// page to the [Navigator] furthest from or nearest to the given `context`. It
+/// is `false` by default.
 void showReleaseNotesPage({
   required BuildContext context,
   required List<Release> releases,
@@ -17,25 +27,36 @@ void showReleaseNotesPage({
   TextStyle? changeTextStyle,
   bool useRootNavigator = false,
 }) {
-  Navigator.of(context, rootNavigator: useRootNavigator)
-      .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-    return ReleaseNotesPage(
-      releases: releases,
-      bullet: bullet,
-      bulletSpacing: bulletSpacing,
-      releaseSpacing: releaseSpacing,
-      releaseTitleSpacing: releaseTitleSpacing,
-      sublistSpacing: sublistSpacing,
-      sublistTitleSpacing: sublistTitleSpacing,
-      changeSpacing: changeSpacing,
-      releaseTitleTextStyle: releaseTitleTextStyle,
-      sublistTitleTextStyle: sublistTitleTextStyle,
-      changeTextStyle: changeTextStyle,
-    );
-  }));
+  Navigator.of(context, rootNavigator: useRootNavigator).push(
+    MaterialPageRoute<void>(
+      builder: (BuildContext context) {
+        return ReleaseNotesPage(
+          releases: releases,
+          bullet: bullet,
+          bulletSpacing: bulletSpacing,
+          releaseSpacing: releaseSpacing,
+          releaseTitleSpacing: releaseTitleSpacing,
+          sublistSpacing: sublistSpacing,
+          sublistTitleSpacing: sublistTitleSpacing,
+          changeSpacing: changeSpacing,
+          releaseTitleTextStyle: releaseTitleTextStyle,
+          sublistTitleTextStyle: sublistTitleTextStyle,
+          changeTextStyle: changeTextStyle,
+        );
+      },
+    ),
+  );
 }
 
+/// An easy to use and customizable [ReleaseNotesPage].
+///
+/// A [ReleaseNotesPage] informs the user about changes to the software.
+///
+/// The arguments correspond to the properties on [ReleaseNotesWidget].
 class ReleaseNotesPage extends StatelessWidget {
+  /// Creates a [ReleaseNotesPage].
+  ///
+  /// Only the releases are required. All other arguments are optional.
   const ReleaseNotesPage({
     Key? key,
     required this.releases,

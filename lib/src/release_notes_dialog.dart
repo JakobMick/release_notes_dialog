@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:release_notes_dialog/src/release_notes_widget.dart';
 import 'package:release_notes_dialog/src/release.dart';
 
+/// Displays a [ReleaseNotesDialog], which informs the user about changes to
+/// the software.
+///
+/// The arguments correspond to the properties on [ReleaseNotesDialog] and
+/// [showDialog].
 void showReleaseNotesDialog({
   required BuildContext context,
   required List<Release> releases,
@@ -46,8 +51,13 @@ void showReleaseNotesDialog({
 /// An easy to use and customizable [ReleaseNotesDialog].
 ///
 /// A [ReleaseNotesDialog] informs the user about changes to the software.
+///
+/// The arguments correspond to the properties on [ReleaseNotesWidget] and
+/// [AlertDialog].
 class ReleaseNotesDialog extends StatelessWidget {
   /// Creates a [ReleaseNotesDialog].
+  ///
+  /// Only the releases are required. All other arguments are optional.
   ///
   /// Typically used in conjunction with [showDialog].
   const ReleaseNotesDialog({

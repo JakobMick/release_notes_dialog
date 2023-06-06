@@ -11,7 +11,19 @@ const double _defaultSublistSpacing = 10.0;
 const double _defaultSublistTitleSpacing = 5.0;
 const double _defaultChangeSpacing = 0.0;
 
+/// An easy to use and customizable [ReleaseNotesWidget].
+///
+/// A [ReleaseNotesWidget] informs the user about changes to the software.
+///
+/// This widget is used internally for [ReleaseNotesDialog],
+/// [ReleaseNotesPage], and [ReleaseNotesListTile].
 class ReleaseNotesWidget extends StatelessWidget {
+  /// Creates a [ReleaseNotesWidget].
+  ///
+  /// Only the releases are required. All other arguments are optional.
+  ///
+  /// Typically [ReleaseNotesDialog], [ReleaseNotesPage], [ReleaseNotesListTile],
+  /// or their corresponding functions are being used instead.
   ReleaseNotesWidget({
     Key? key,
     required this.releases,
@@ -37,7 +49,7 @@ class ReleaseNotesWidget extends StatelessWidget {
   ///
   /// Defaults to '•'.
   /// {@endtemplate}
-  late final String? bullet;
+  final String? bullet;
 
   /// {@template rnd.widget.bulletSpacing}
   /// The spacing behind the bullets.
