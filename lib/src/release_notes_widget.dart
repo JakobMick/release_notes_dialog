@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:release_notes_dialog/src/release_sublist.dart';
+import 'package:release_notes_dialog/src/change_group.dart';
 import 'package:release_notes_dialog/src/release.dart';
 
 const String _defaultBullet = "•";
 const double _defaultBulletSpacing = 2.5;
 const double _defaultReleaseSpacing = 12.5;
 const double _defaultReleaseTitleSpacing = 12.5;
-const double _defaultSublistSpacing = 10.0;
-const double _defaultSublistTitleSpacing = 5.0;
+const double _defaultChangeGroupSpacing = 10.0;
+const double _defaultChangeGroupTitleSpacing = 5.0;
 const double _defaultChangeSpacing = 0.0;
 
 /// An easy to use and customizable [ReleaseNotesWidget].
@@ -31,11 +31,11 @@ class ReleaseNotesWidget extends StatelessWidget {
     this.bulletSpacing,
     this.releaseSpacing,
     this.releaseTitleSpacing,
-    this.sublistSpacing,
-    this.sublistTitleSpacing,
+    this.changeGroupSpacing,
+    this.changeGroupTitleSpacing,
     this.changeSpacing,
     this.releaseTitleTextStyle,
-    this.sublistTitleTextStyle,
+    this.changeGroupTitleTextStyle,
     this.changeTextStyle,
   }) : super(key: key);
 
@@ -72,22 +72,22 @@ class ReleaseNotesWidget extends StatelessWidget {
   /// {@endtemplate}
   final double? releaseTitleSpacing;
 
-  /// {@template rnd.widget.sublistSpacing}
-  /// The spacing between the [ReleaseSublist]s of each [Release].
+  /// {@template rnd.widget.changeGroupSpacing}
+  /// The spacing between the [ChangeGroup]s of each [Release].
   ///
   /// Defaults to 10.0.
   /// {@endtemplate}
-  final double? sublistSpacing;
+  final double? changeGroupSpacing;
 
-  /// {@template rnd.widget.sublistTitleSpacing}
-  /// The spacing beneath the name of each [ReleaseSublist].
+  /// {@template rnd.widget.changeGroupTitleSpacing}
+  /// The spacing beneath the name of each [ChangeGroup].
   ///
   /// Defaults to 5.0.
   /// {@endtemplate}
-  final double? sublistTitleSpacing;
+  final double? changeGroupTitleSpacing;
 
   /// {@template rnd.widget.changeSpacing}
-  /// The spacing between the single changes in each [ReleaseSublist].
+  /// The spacing between the single changes in each [ChangeGroup].
   ///
   /// Defaults to 0.0.
   /// {@endtemplate}
@@ -100,12 +100,12 @@ class ReleaseNotesWidget extends StatelessWidget {
   /// {@endtemplate}
   final TextStyle? releaseTitleTextStyle;
 
-  /// {@template rnd.widget.sublistTitleTextStyle}
-  /// The [TextStyle] for the [ReleaseSublist]s title.
+  /// {@template rnd.widget.changeGroupTitleTextStyle}
+  /// The [TextStyle] for the [ChangeGroup]s title.
   ///
   /// Defaults to [TextTheme.titleSmall] of [ThemeData.textTheme].
   /// {@endtemplate}
-  final TextStyle? sublistTitleTextStyle;
+  final TextStyle? changeGroupTitleTextStyle;
 
   /// {@template rnd.widget.changeTextStyle}
   /// The [TextStyle] for the each change.
@@ -120,40 +120,41 @@ class ReleaseNotesWidget extends StatelessWidget {
     final TextStyle? finalVersionNumberTextStyle = releaseTitleTextStyle ??
         theme.textTheme.titleMedium?.copyWith(height: 1);
 
-    final TextStyle? finalReleaseSublistNameTextStyle = sublistTitleTextStyle ??
-        theme.textTheme.titleSmall?.copyWith(height: 1);
+    final TextStyle? finalChangeGroupNameTextStyle =
+        changeGroupTitleTextStyle ??
+            theme.textTheme.titleSmall?.copyWith(height: 1);
 
     final TextStyle? finalChangeTextStyle =
         changeTextStyle ?? theme.textTheme.bodyMedium;
 
-    List<Widget> _getChanges(ReleaseSublist sublist) {
+    List<Widget> _getChanges(ChangeGroup changeGroup) {
       List<Widget> widgets = [];
 
-      for (int i = 0; i < sublist.changes.length; i++) {
+      for (int i = 0; i < changeGroup.changes.length; i++) {
         widgets.add(Row(
           mainAxisSize: MainAxisSize.min,
           textBaseline: TextBaseline.alphabetic,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              sublist.bullet ?? this.bullet ?? _defaultBullet,
+              changeGroup.bullet ?? this.bullet ?? _defaultBullet,
               style: finalChangeTextStyle,
             ),
             SizedBox(
-              width: sublist.bulletSpacing ??
+              width: changeGroup.bulletSpacing ??
                   this.bulletSpacing ??
                   _defaultBulletSpacing,
             ),
             Expanded(
               child: Text(
-                sublist.changes[i],
+                changeGroup.changes[i],
                 style: finalChangeTextStyle,
               ),
             ),
           ],
         ));
 
-        if (i < sublist.changes.length - 1)
+        if (i < changeGroup.changes.length - 1)
           widgets.add(SizedBox(
             height: changeSpacing ?? _defaultChangeSpacing,
           ));
@@ -162,27 +163,28 @@ class ReleaseNotesWidget extends StatelessWidget {
       return widgets;
     }
 
-    List<Widget> _getSublists(Release release) {
+    List<Widget> _getChangeGroups(Release release) {
       List<Widget> widgets = [];
 
-      for (int i = 0; i < release.sublists.length; i++) {
+      for (int i = 0; i < release.changeGroups.length; i++) {
         widgets.addAll([
           Padding(
             padding: EdgeInsets.only(
-                bottom: release.sublists[i].changes.isNotEmpty
-                    ? (sublistTitleSpacing ?? _defaultSublistTitleSpacing)
+                bottom: release.changeGroups[i].changes.isNotEmpty
+                    ? (changeGroupTitleSpacing ??
+                        _defaultChangeGroupTitleSpacing)
                     : 0),
             child: Text(
-              release.sublists[i].title,
-              style: finalReleaseSublistNameTextStyle,
+              release.changeGroups[i].title,
+              style: finalChangeGroupNameTextStyle,
             ),
           ),
-          ..._getChanges(release.sublists[i])
+          ..._getChanges(release.changeGroups[i])
         ]);
 
-        if (i < release.sublists.length - 1)
+        if (i < release.changeGroups.length - 1)
           widgets.add(SizedBox(
-            height: sublistSpacing ?? _defaultSublistSpacing,
+            height: changeGroupSpacing ?? _defaultChangeGroupSpacing,
           ));
       }
 
@@ -195,7 +197,7 @@ class ReleaseNotesWidget extends StatelessWidget {
       widgets.addAll([
         Padding(
           padding: EdgeInsets.only(
-            bottom: releases[i].sublists.isNotEmpty
+            bottom: releases[i].changeGroups.isNotEmpty
                 ? (releaseTitleSpacing ?? _defaultReleaseTitleSpacing)
                 : 0,
           ),
@@ -204,7 +206,7 @@ class ReleaseNotesWidget extends StatelessWidget {
             style: finalVersionNumberTextStyle,
           ),
         ),
-        ..._getSublists(releases[i])
+        ..._getChangeGroups(releases[i])
       ]);
 
       if (i < releases.length - 1)

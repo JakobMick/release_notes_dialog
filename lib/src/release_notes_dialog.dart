@@ -15,11 +15,11 @@ void showReleaseNotesDialog({
   double? bulletSpacing,
   double? releaseSpacing,
   double? releaseTitleSpacing,
-  double? sublistSpacing,
-  double? sublistTitleSpacing,
+  double? changeGroupSpacing,
+  double? changeGroupTitleSpacing,
   double? changeSpacing,
   TextStyle? releaseTitleTextStyle,
-  TextStyle? sublistTitleTextStyle,
+  TextStyle? changeGroupTitleTextStyle,
   TextStyle? changeTextStyle,
   bool useRootNavigator = true,
   RouteSettings? routeSettings,
@@ -35,11 +35,11 @@ void showReleaseNotesDialog({
         bulletSpacing: bulletSpacing,
         releaseSpacing: releaseSpacing,
         releaseTitleSpacing: releaseTitleSpacing,
-        sublistSpacing: sublistSpacing,
-        sublistTitleSpacing: sublistTitleSpacing,
+        changeGroupSpacing: changeGroupSpacing,
+        changeGroupTitleSpacing: changeGroupTitleSpacing,
         changeSpacing: changeSpacing,
         releaseTitleTextStyle: releaseTitleTextStyle,
-        sublistTitleTextStyle: sublistTitleTextStyle,
+        changeGroupTitleTextStyle: changeGroupTitleTextStyle,
         changeTextStyle: changeTextStyle,
       );
     },
@@ -77,12 +77,12 @@ class ReleaseNotesDialog extends StatelessWidget {
     this.bulletSpacing,
     this.releaseSpacing,
     this.releaseTitleSpacing,
-    this.sublistSpacing,
-    this.sublistTitleSpacing,
+    this.changeGroupSpacing,
+    this.changeGroupTitleSpacing,
     this.changeSpacing,
     this.titleTextStyle,
     this.releaseTitleTextStyle,
-    this.sublistTitleTextStyle,
+    this.changeGroupTitleTextStyle,
     this.changeTextStyle,
     this.closeButtonTextStyle,
     this.backgroundColor,
@@ -229,11 +229,11 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// {@macro rnd.widget.releaseTitleSpacing}
   final double? releaseTitleSpacing;
 
-  /// {@macro rnd.widget.sublistSpacing}
-  final double? sublistSpacing;
+  /// {@macro rnd.widget.changeGroupSpacing}
+  final double? changeGroupSpacing;
 
-  /// {@macro rnd.widget.sublistTitleSpacing}
-  final double? sublistTitleSpacing;
+  /// {@macro rnd.widget.changeGroupTitleSpacing}
+  final double? changeGroupTitleSpacing;
 
   /// {@macro rnd.widget.changeSpacing}
   final double? changeSpacing;
@@ -244,8 +244,8 @@ class ReleaseNotesDialog extends StatelessWidget {
   /// {@macro rnd.widget.releaseTitleTextStyle}
   final TextStyle? releaseTitleTextStyle;
 
-  /// {@macro rnd.widget.sublistTitleTextStyle}
-  final TextStyle? sublistTitleTextStyle;
+  /// {@macro rnd.widget.changeGroupTitleTextStyle}
+  final TextStyle? changeGroupTitleTextStyle;
 
   /// {@macro rnd.widget.changeTextStyle}
   final TextStyle? changeTextStyle;
@@ -287,11 +287,11 @@ class ReleaseNotesDialog extends StatelessWidget {
         bulletSpacing: bulletSpacing,
         releaseSpacing: releaseSpacing,
         releaseTitleSpacing: releaseTitleSpacing,
-        sublistSpacing: sublistSpacing,
-        sublistTitleSpacing: sublistTitleSpacing,
+        changeGroupSpacing: changeGroupSpacing,
+        changeGroupTitleSpacing: changeGroupTitleSpacing,
         changeSpacing: changeSpacing,
         releaseTitleTextStyle: releaseTitleTextStyle,
-        sublistTitleTextStyle: sublistTitleTextStyle,
+        changeGroupTitleTextStyle: changeGroupTitleTextStyle,
         changeTextStyle: changeTextStyle,
       ),
       actions: [

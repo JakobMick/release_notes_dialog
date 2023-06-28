@@ -1,16 +1,16 @@
-import 'package:release_notes_dialog/src/release_sublist.dart';
+import 'package:release_notes_dialog/src/change_group.dart';
 
 /// A [Release] to display in the [ReleaseNotesDialog].
 ///
-/// A [Release] contains a version number and a list of [ReleaseSublist]s.
+/// A [Release] contains a version number and a list of [ChangeGroup]s.
 class Release {
   /// Creates a [Release] to display in the [ReleaseNotesDialog].
-  const Release(this.title, this.sublists);
+  const Release(this.title, this.changeGroups);
 
   /// The title of this [Release].
   final String title;
 
-  /// A List of [ReleaseSublist]s. [ReleaseSublist]s are being used to group
+  /// A List of [ChangeGroup]s. [ChangeGroup]s are being used to group
   /// your changes into fitting categories.
-  final List<ReleaseSublist> sublists;
+  final List<ChangeGroup> changeGroups;
 }
