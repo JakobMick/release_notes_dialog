@@ -7,8 +7,8 @@
 class ChangeGroup {
   /// Creates a [ChangeGroup] for your [Release]s to display in the
   /// [ReleaseNotesDialog].
-  const ChangeGroup(
-    this.title, {
+  const ChangeGroup({
+    required this.title,
     this.changes = const [],
     this.bullet,
     this.bulletSpacing,
