@@ -24,9 +24,9 @@ class ExampleApp extends StatelessWidget {
 class ExamplePage extends StatelessWidget {
   final List<Release> releases = [
     Release(
-      "1.1.0",
-      [
-        ReleaseSublist(
+      title: "1.1.0",
+      changes: [
+        ChangeGroup(
           title: "Features",
           changes: [
             "Added new feature 1",
@@ -34,7 +34,7 @@ class ExamplePage extends StatelessWidget {
             "Added a very long feature to show how multiple lines work",
           ],
         ),
-        ReleaseSublist(
+        ChangeGroup(
           title: "Fixes",
           changes: [
             if (Platform.isAndroid) "Fixed bug on Android",
@@ -48,8 +48,8 @@ class ExamplePage extends StatelessWidget {
       ],
     ),
     Release(
-      "1.0.0",
-      [ReleaseSublist(title: "Release!")],
+      title: "1.0.0",
+      changes: [ChangeGroup(title: "Release!")],
     ),
   ];
 

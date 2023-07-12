@@ -11,6 +11,14 @@ const double _defaultChangeGroupSpacing = 10.0;
 const double _defaultChangeGroupTitleSpacing = 5.0;
 const double _defaultChangeSpacing = 0.0;
 
+bool _isNullOrEmpty(List<dynamic>? list) {
+  if (list == null || list.isEmpty) {
+    return true;
+  }
+
+  return false;
+}
+
 /// An easy to use and customizable [ReleaseNotesWidget].
 ///
 /// A [ReleaseNotesWidget] informs the user about changes to the software.
@@ -166,23 +174,27 @@ class ReleaseNotesWidget extends StatelessWidget {
     List<Widget> _getChangeGroups(Release release) {
       List<Widget> widgets = [];
 
-      for (int i = 0; i < release.changeGroups.length; i++) {
+      if (_isNullOrEmpty(release.changes)) {
+        return [];
+      }
+
+      for (int i = 0; i < release.changes!.length; i++) {
         widgets.addAll([
           Padding(
             padding: EdgeInsets.only(
-                bottom: release.changeGroups[i].changes.isNotEmpty
+                bottom: release.changes![i].changes.isNotEmpty
                     ? (changeGroupTitleSpacing ??
                         _defaultChangeGroupTitleSpacing)
                     : 0),
             child: Text(
-              release.changeGroups[i].title,
+              release.changes![i].title,
               style: finalChangeGroupNameTextStyle,
             ),
           ),
-          ..._getChanges(release.changeGroups[i])
+          ..._getChanges(release.changes![i])
         ]);
 
-        if (i < release.changeGroups.length - 1)
+        if (i < release.changes!.length - 1)
           widgets.add(SizedBox(
             height: changeGroupSpacing ?? _defaultChangeGroupSpacing,
           ));
@@ -197,7 +209,7 @@ class ReleaseNotesWidget extends StatelessWidget {
       widgets.addAll([
         Padding(
           padding: EdgeInsets.only(
-            bottom: releases[i].changeGroups.isNotEmpty
+            bottom: !_isNullOrEmpty(releases[i].changes)
                 ? (releaseTitleSpacing ?? _defaultReleaseTitleSpacing)
                 : 0,
           ),
