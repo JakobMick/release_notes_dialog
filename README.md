@@ -4,13 +4,15 @@ An easy to use release notes dialog. Customizable to fit your apps design.
 
 <img src="https://github.com/JakobMick/release_notes_dialog/blob/main/README_example_screenshot.jpg?raw=true" width="256">
 
+This package is ment to complement the existing [AboutDialog](https://api.flutter.dev/flutter/material/AboutDialog-class.html).
+
 ## Installation
 
 In your pubspec.yaml:
 
 ```dart
 dependencies:
-    release_notes_dialog: "^1.2.0"
+    release_notes_dialog: "^2.0.0"
 ```
 
 In your .dart file:
@@ -21,104 +23,110 @@ import 'package:release_notes_dialog/release_notes_dialog.dart';
 
 ## Basic Usage
 
-The ReleaseNotesDialog requires a list of releases. A release needs a version number and contains a list of sublists. Sublists are used to group your changes, for example features, bug fixes, improvements, other.
+The ```ReleaseNotesDialog``` requires a list of ```Release```s. A ```Release``` requires a title and contains a list of ```ChangeGroup```s. ```ChangeGroup```s are used to group your changes, for example features, bug fixes, improvements and more.
 
 Create a list of releases:
 
 ```dart
 final List<Release> releases = [
   Release(
-    "1.1.0",
-    [
-      ReleaseSublist(
-        name: "Features",
+    title: "1.1.0",
+    changes: [
+      ChangeGroup(
+        title: "Features",
         changes: [
-          "Added new feature 1",
-          "Added new feature 2",
+          "Added a new feature",
+          "Added a second feature",
         ],
       ),
-      ReleaseSublist(
-        name: "Fixes",
+      ChangeGroup(
+        title: "Fixes",
         changes: [
-          "Fixed bug 1",
-          "Fixed bug 2",
-          "Fixed bug 3",
+          "Fixed the first bug",
+          "Fixed a happy little accident",
+          "Fixed another bug",
         ],
       ),
     ],
   ),
   Release(
-    "1.0.0",
-    [
-      ReleaseSublist(
-        name: "Release!",
+    title: "1.0.0",
+    changes: [
+      ChangeGroup(
+        title: "Release!",
       ),
     ],
   ),
 ];
 ```
 
-Show the dialog:
+You can display your releases in a variety of ways:
 
-```dart
-ElevatedButton(
-    onPressed: () => showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return ReleaseNotesDialog(releases: releases);
-        }),
-    child: Text("Show Dialog"),
-);
-```
+- Show the ```ReleaseNotesDialog``` using the ```showDialog()``` function:
 
-## API
+  ```dart
+  ElevatedButton(
+      onPressed: () => showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ReleaseNotesDialog(releases: releases);
+          }),
+      child: Text("Show ReleaseNotesDialog"),
+  );
+  ```
 
-### Release Notes Dialog
+- Show the dialog using the ```showReleaseNotesDialog()``` function:
 
-| Type               | Property                         | Default                                                                                            | Description                                                                                                                            |
-| ------------------ | -------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Key                | key                              | NULL                                                                                               | Controls how one widget replaces another widget in the tree.                                                                           |
-| List<Release>      | releases                         | RQUIRED                                                                                            | The list of releases.                                                                                                                  |
-| String             | title                            | 'Release Notes'                                                                                    | The title of the dialog                                                                                                                |
-| String             | bullet                           | '•'                                                                                                | The bullet used in the dialog.                                                                                                         |
-| String             | closeButtonString                | 'Close'                                                                                            | The text on the close button                                                                                                           |
-| **Dialog:**        |                                  |                                                                                                    |                                                                                                                                        |
-| double             | width                            | NULL                                                                                               | The width of the dialog.                                                                                                               |
-| double             | height                           | NULL                                                                                               | The height of the dialog.                                                                                                              |
-| Color              | backgroundColor                  | ThemeData.dialogBackgroundColor                                                                    | The background color of the surface of this Dialog.                                                                                    |
-| double             | elevation                        | DialogTheme.elevation                                                                              | The z-coordinate of this dialog.                                                                                                       |
-| ShapeBorder        | shape                            | RoundedRectangleBorder with a radius of 4.0                                                        | The shape of this dialog's border.                                                                                                     |
-| String             | semanticLabel                    | 'Release Notes'                                                                                    | The semantic label of the dialog used by accessibility frameworks to announce screen transitions when the dialog is opened and closed. |
-| **Content:**       |                                  |                                                                                                    |                                                                                                                                        |
-| EdgeInsetsGeometry | titlePadding                     | const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0)                                                   | Padding around the title.                                                                                                              |
-| EdgeInsetsGeometry | contentPadding                   | const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0)                                                   | Padding around the content.                                                                                                            |
-| double             | bulletPadding                    | const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0)                                                   | The padding behind the bullets.                                                                                                        |
-| double             | paddingBetweenReleases           | 32.5                                                                                               | Padding between releases.                                                                                                              |
-| double             | paddingBeneathVersionNumber      | 12.5                                                                                               | Padding beneath release version numbers.                                                                                               |
-| double             | paddingBetweenReleaseSublists    | 10.0                                                                                               | Padding beneath release sublists.                                                                                                      |
-| double             | paddingBeneathReleaseSublistName | 5.0                                                                                                | Padding beneath release sublist names.                                                                                                 |
-| double             | paddingBetweenChanges            | 0.0                                                                                                | Padding between changes.                                                                                                               |
-| TextStyle          | titleTextStyle                   | dialogTheme.titleTextStyle ?? theme.textTheme.headlineMedium                                       | Style for the text in the title of this AlertDialog.                                                                                   |
-| TextStyle          | versionNumberTextStyle           | theme.textTheme.titleMedium                                                                        | Style for the version numbers.                                                                                                         |
-| TextStyle          | releaseSublistNameTextStyle      | theme.textTheme.titleSmall                                                                         | Style for release sublist names.                                                                                                       |
-| TextStyle          | changeTextStyle                  | dialogTheme.contentTextStyle ?? theme.textTheme.bodyMedium                                         | Style for changes.                                                                                                                     |
-| TextStyle          | closeButtonTextStyle             | dialogTheme.contentTextStyle ?? theme.textTheme.bodyMedium                                         | Style for the close button.                                                                                                            |
+  ```dart
+  ElevatedButton(
+      onPressed: () => showReleaseNotesDialog(
+          context: context,
+          releases: releases,
+      ),
+      child: Text("Show ReleaseNotesDialog"),
+  );
+  ```
 
-### Release
+- Show the ```ReleaseNotesPage``` using the ```Navigator```:
 
-| Type                 | Property      | Default  | Description                         |
-| -------------------- | ------------- | -------- | ----------------------------------- |
-| String               | versionNumber | REQUIRED | The version number of this release. |
-| List<ReleaseSublist> | subLists      | REQUIRED | The sublists of this release.       |
+  ```dart
+  ElevatedButton(
+      onPressed: () => Navigator.of(context, rootNavigator: useRootNavigator).push(
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) {
+            return ReleaseNotesPage(
+              releases: releases,
+            );
+          },
+        ),
+      ),
+      child: Text("Show ReleaseNotesPage"),
+  );
+  ```
 
-### ReleaseSublist
+- Show the page using the ```showReleaseNotesPage()``` function:
 
-| Type         | Property      | Default   | Description                                                                                                                    |
-| ------------ | ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| String       | name          | 'Changes' | The name of this sublist.                                                                                                      |
-| String       | bullet        | NULL      | The bullet used for this ReleaseSublist. If null, the ReleaseNotesDialog's bullet property is used.                            |
-| double       | bulletPadding | NULL      | The padding behind the bullets used for this ReleaseSublist. If null, the ReleaseNotesDialog's bulletPadding property is used. |
-| List<String> | changes       | const [ ] | The list of changes of this sublist.                                                                                           |
+  ```dart
+  ElevatedButton(
+      onPressed: () => showReleaseNotesPage(
+          context: context,
+          releases: releases,
+      ),
+      child: Text("Show ReleaseNotesPage"),
+  );
+  ```
+
+- Show the ```ReleaseNotesListTile```:
+
+  ```dart
+  ReleaseNotesListTile(releases: releases);
+  ```
+
+- Show the ```ReleaseNotesWidget```:
+
+  ```dart
+  ReleaseNotesWidget(releases: releases);
+  ```
 
 ## Contributions
 
